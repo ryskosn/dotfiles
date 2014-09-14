@@ -1,7 +1,9 @@
 # PATH Config
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-export PATH="/Users/ryosuke/my/py34/bin:$PATH"
-export PATH="/Users/ryosuke/.cask/bin:$PATH"
+export PATH="$HOME/my/py34/bin:$PATH"
+export PATH="$HOME/.cask/bin:$PATH"
+export PATH="$HOME/.rbenv:$PATH"
+eval "$(rbenv init - zsh)"
 
 # language environment
 export LANG=ja_JP.UTF-8

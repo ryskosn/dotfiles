@@ -186,15 +186,32 @@
 
 ;; popwin
 ;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
-(setq pop-up-windows nil)
-(require 'popwin nil t)
-(when (require 'popwin nil t)
-  (setq anything-samewindow nil)
-  (setq display-buffer-function 'popwin:display-buffer)
-  (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
-  (push '("*Completions*" :height 0.4) popwin:special-display-config)
-  (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
-  )
+;; (setq pop-up-windows nil)
+;; (require 'popwin t)
+;; (when (require 'popwin nil t)
+;;   (setq anything-samewindow nil)
+;;   (setq display-buffer-function 'popwin:display-buffer)
+;;   (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
+;;   (push '("*Completions*" :height 0.4) popwin:special-display-config)
+;;   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
+;;   )
+
+;; http://valvallow.blogspot.jp/2011/03/emacs-popwinel.html
+
+(require 'popwin)
+(defvar popwin:special-display-config-backup popwin:special-display-config)
+(setq display-buffer-function 'popwin:display-buffer)
+(setq popwin:special-display-config
+      (append '(("*Remember*" :stick t)
+		("*Org Agenda*")
+		("*Backtrace*")
+		("*quickrun*")
+		("COMMIT_EDITMSG")
+                ("*sdic*" :noselect))
+              popwin:special-display-config))
+(define-key global-map (kbd "C-x p") 'popwin:display-last-buffer)
+
+
 
 
 ;; org-remember の設定
@@ -439,5 +456,42 @@
 (setq frame-background-mode 'dark)
 ;; 全部スペースでインデントしましょう
 (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
-;;
+
+
+;;;; flex-autopair.el
+;; http://d.hatena.ne.jp/uk-ar/20120401/1333282805
+(require 'flex-autopair)
+(flex-autopair-mode 1)
+
+
+;;;; quickrun
+;; https://github.com/syohex/emacs-quickrun
+;; http://yunojy.github.io/blog/2013/03/17/emacs-de-quickrun-or-quickrun-region/
+(require 'quickrun)
+(defun quickrun-sc (start end)
+(interactive "r")
+(if mark-active
+    (quickrun :start start :end end)
+  (quickrun)))
+(global-set-key (kbd "<f5>") 'quickrun-sc)
+
+
+;;;; magit
+;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
+(require 'magit)
+
+
+;;;; text-adjust.el
+;; http://d.hatena.ne.jp/rubikitch/20090220/text_adjust
+;; http://rubikitch.com/f/text-adjust.el
+;; http://rubikitch.com/f/mell.el
+
+(require 'text-adjust)
+(defun text-adjust-space-before-save-if-needed ()
+  (when (memq major-mode
+              '(org-mode text-mode mew-draft-mode myhatena-mode))
+    (text-adjust-space-buffer)))
+(defalias 'spacer 'text-adjust-space-buffer)
+(add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+
 ;;; init.el ends here

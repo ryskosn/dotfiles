@@ -1,7 +1,7 @@
 #!/bin/bash
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.gitignore ~/.gitignore
-ln -s ~/dotfiles/.zshrc ~/.zscrc
+ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.profile ~/.profile
 ln -s ~/dotfiles/.slate.js ~/.slate.js
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf

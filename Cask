@@ -27,6 +27,8 @@
 ;; Coding
 (depends-on "flycheck")
 (depends-on "yasnippet")
+(depends-on "flex-autopair")
+(depends-on "quickrun")
 
 ;; File
 (depends-on "open-junk-file")
