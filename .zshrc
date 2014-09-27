@@ -7,6 +7,7 @@ eval "$(rbenv init - zsh)"
 
 # language environment
 export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -31,20 +32,29 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
- 
+
+# LS_COLORS
+# http://qiita.com/yuyuchu3333/items/84fa4e051c3325098be3
+eval $(gdircolors $HOME/src/dircolors-solarized/dircolors.ansi-universal)
+
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
+
+
 # emacs 風キーバインドにする
 bindkey -e
  
 # ヒストリの設定
 HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=10000000
+SAVEHIST=10000000
  
 # プロンプト
 # 2行表示
 PROMPT="%{${fg[red]}%}[%n@%m]%{${reset_color}%} %~
-%# "
-RPROMPT="%*"
+%* %# "
+# RPROMPT="%*"
 
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
@@ -77,11 +87,20 @@ setopt auto_menu
 setopt extended_glob
 
 # Alias
-alias ls='ls -a'
-alias ll='ls -l'
- 
+# coreutils をインストールする
+alias ls='gls -a'
+alias ll='gls -l'
+alias lls='ls -a' 
+
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
  
 alias mkdir='mkdir -p'
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# nvm
+[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+
