@@ -35,7 +35,7 @@
 
 ;; 行番号の表示
 (global-linum-mode)
-(setq linum-format "%4d")
+(setq linum-format "%4d ")
 
 ;; 現在行をハイライト
 (global-hl-line-mode)
@@ -203,15 +203,16 @@
 (setq display-buffer-function 'popwin:display-buffer)
 (setq popwin:special-display-config
       (append '(("*Remember*" :stick t)
-		("*Org Agenda*")
+		("*Org Agenda*" :height 0.5)
+		("anything" :regexp t :height 0.5)
 		("*Backtrace*")
-		("*quickrun*")
+		("*quickrun*" :height 0.4)
+		("*magit*" :regexp t :height 0.5)
+		("*Dired*" :height 0.5)
 		("COMMIT_EDITMSG")
                 ("*sdic*" :noselect))
               popwin:special-display-config))
 (define-key global-map (kbd "C-x p") 'popwin:display-last-buffer)
-
-
 
 
 ;; org-remember の設定
@@ -226,11 +227,32 @@
 (setq org-use-fast-todo-selection t)
 ;; TODO キーワードの設定 "|" より右側は完了状態
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCEL(c)")))
+      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCEL(c)" "PENDING(p)" )))
 
 ;; メモを格納する org ファイルの設定
 (setq org-directory "~/Dropbox/Org/")
-(setq org-default-notes-file (expand-file-name "memo.org" org-directory))
+
+;; org-capture の設定
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Dropbox/Org/plan.org" "Inbox")
+	 "* TODO %?\n %U" :prepend t :empty-lines 1)
+
+	("n" "Note" entry (file "~/Dropbox/Org/note.org")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
+
+	("N" "Note clip" entry (file "~/Dropbox/Org/note.org")
+	 "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+
+	("f" "Forex" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
+
+	("F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
+	 "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+
+	))
+
 
 ;; http://d.hatena.ne.jp/tamura70/20100208/org
 ;; アジェンダ表示の対象ファイル
@@ -281,6 +303,7 @@
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
 
+
 ;; 分割したバッファを入れ替える
 ;; http://www.bookshelf.jp/soft/meadow_30.html#SEC403
 (defun swap-screen()
@@ -325,6 +348,7 @@
       (nconc '(
                ("\\.rst$" . ["template.rst" my-template])
 	       ("\\.py$" . ["template.py" my-template])
+	       ("\\.html" . ["template.html" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
@@ -349,25 +373,32 @@
 ;; fly-check
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+
 ;; s2-mode
 ;; http://goo.gl/ny0vtW
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-;; powerline
+
+;;;; powerline
 ;;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
 ;; (require 'powerline)
 ;; (powerline-default-theme)
 
-;; IME
+
+;;;; IME
 ;;; http://b.mgrace.info/?p=1128
 (setq default-input-method "MacOSX")
 ;; ;; emacs 起動時は英数モードから始める  
 ;; (add-hook 'after-init-hook 'mac-change-language-to-us)
-;; ;; minibuffer 内は英数モードにする  
+;; minibuffer 内は英数モードにする  
 ;; (add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
-;; ;; backslash を優先
+;; ;; backslash を先
 ;; (mac-translate-from-yen-to-backslash)
+
+;; http://qiita.com/catatsuy/items/886f1e0632c0b2760fb4
+;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" 'title "あ")
+
 
 ;; jedi Python
 ;;; http://d.hatena.ne.jp/CortYuming/20130415/p1
@@ -426,7 +457,7 @@
 (require 'visual-regexp)
 (global-set-key "\M-%" 'vr/query-replace)
 
-;; migemo
+;;;; migemo
 ;;; http://rubikitch.com/2014/08/20/migemo/
 (require 'migemo)
 (setq migemo-command "cmigemo")
@@ -456,6 +487,8 @@
 (setq frame-background-mode 'dark)
 ;; 全部スペースでインデントしましょう
 (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
+;; 見出しを設定する 
+(global-set-key "\C-c=" 'rst-adjust)
 
 
 ;;;; flex-autopair.el
@@ -486,12 +519,37 @@
 ;; http://rubikitch.com/f/text-adjust.el
 ;; http://rubikitch.com/f/mell.el
 
-(require 'text-adjust)
-(defun text-adjust-space-before-save-if-needed ()
-  (when (memq major-mode
-              '(org-mode text-mode mew-draft-mode myhatena-mode))
-    (text-adjust-space-buffer)))
-(defalias 'spacer 'text-adjust-space-buffer)
-(add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+;; (require 'text-adjust)
+;; (defun text-adjust-space-before-save-if-needed ()
+;;   (when (memq major-mode
+;;               '(org-mode text-mode mew-draft-mode myhatena-mode))
+;;     (text-adjust-space-buffer)))
+;; (defalias 'spacer 'text-adjust-space-buffer)
+;; (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+
+
+;;;; yasnippet
+;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/mySnippets"
+	"~/.emacs.d/snippets"
+	))
+
+(yas-global-mode 1)
+
+;; download snippets from GitHub
+;; ~/.emacs.d/
+;; % git clone https://github.com/AndreaCrotti/yasnippet-snippets.git snippets
+
+;; insert snippet
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+;; new snippet
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; view, edit snippet
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+
+
+
 
 ;;; init.el ends here
