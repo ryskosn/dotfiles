@@ -80,7 +80,7 @@ defaults write -g com.apple.keyboard.fnState -bool true
 # never keep wintows state
 defaults write -g NSQuitAlwaysKeepsWindows -bool false
 # pointer size maximum
-defaults write com.apple.universalaccess mouseDriverCursorSize -int 4
+# defaults write com.apple.universalaccess mouseDriverCursorSize -int 4
 
 # Save to disk (not to iCloud)
 defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false

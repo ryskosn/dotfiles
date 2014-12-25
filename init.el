@@ -218,6 +218,7 @@
 ;; org-remember の設定
 (require 'org)
 
+(setq org-src-fontify-natively t)
 ;; http://d.hatena.ne.jp/tamura70/20100203/org
 ;;;(define-key global-map "\C-ca" 'org-agenda)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -519,13 +520,13 @@
 ;; http://rubikitch.com/f/text-adjust.el
 ;; http://rubikitch.com/f/mell.el
 
-;; (require 'text-adjust)
-;; (defun text-adjust-space-before-save-if-needed ()
-;;   (when (memq major-mode
-;;               '(org-mode text-mode mew-draft-mode myhatena-mode))
-;;     (text-adjust-space-buffer)))
-;; (defalias 'spacer 'text-adjust-space-buffer)
-;; (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
+(require 'text-adjust)
+(defun text-adjust-space-before-save-if-needed ()
+  (when (memq major-mode
+              '(org-mode text-mode mew-draft-mode myhatena-mode))
+    (text-adjust-space-buffer)))
+(defalias 'spacer 'text-adjust-space-buffer)
+(add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
 
 
 ;;;; yasnippet
