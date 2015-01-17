@@ -1,8 +1,9 @@
 # PATH Config
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-export PATH="$HOME/my/py34/bin:$PATH"
+export PATH="$HOME/py34/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 export PATH="$HOME/.rbenv:$PATH"
+export PATH="$HOME/bin:$PATH"
 eval "$(rbenv init - zsh)"
 
 # language environment
@@ -88,8 +89,8 @@ setopt extended_glob
 
 # Alias
 # coreutils をインストールする
-alias ls='gls -a'
-alias ll='gls -l'
+alias ls='gls -a --color=auto'
+alias ll='gls -l --color=auto'
 alias lls='ls -a' 
 
 alias rm='rm -i'

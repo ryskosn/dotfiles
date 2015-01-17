@@ -3,9 +3,8 @@
 ;; Color theme
 ;; http://d.hatena.ne.jp/aoe-tk/20130210/1360506829
 ;; http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e#2-1
-(setq custom-theme-directory "~/.emacs.d/themes/")
-(load-theme 'dark-laptop t)
-;; (load-theme 'wombat t)
+;; (setq custom-theme-directory "~/.emacs.d/themes/")
+(load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
 ;; (load-theme 'misterioso t)
 
@@ -38,8 +37,6 @@
 (setq linum-format "%4d ")
 
 ;; 現在行をハイライト
-(global-hl-line-mode)
-
 ;;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
 (defface hlline-face
   '((((class color)
@@ -184,18 +181,8 @@
 (global-set-key (kbd "C-o") 'anything)
 
 
-;; popwin
-;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
-;; (setq pop-up-windows nil)
-;; (require 'popwin t)
-;; (when (require 'popwin nil t)
-;;   (setq anything-samewindow nil)
-;;   (setq display-buffer-function 'popwin:display-buffer)
-;;   (push '("anything" :regexp t :height 0.5) popwin:special-display-config)
-;;   (push '("*Completions*" :height 0.4) popwin:special-display-config)
-;;   (push '("*compilation*" :height 0.4 :noselect t :stick t) popwin:special-display-config)
-;;   )
 
+;;;; popwin
 ;; http://valvallow.blogspot.jp/2011/03/emacs-popwinel.html
 
 (require 'popwin)
@@ -275,9 +262,11 @@
         (t
          (setq truncate-lines nil))))
 
+
 ;; auto-complete.el
 (require 'auto-complete)
 (global-auto-complete-mode t)
+
 
 ;; key-chord.el をインストール
 ;; ;; M-x install-elisp-from-emacswiki RET  key-chord.el
@@ -286,10 +275,12 @@
 ;; ;; jk 同時押しで M-x org-remember を実行
 ;; (key-chord-define-global "jk" 'org-remember)
 
+
 ;; open-junk-file
 ;; http://d.hatena.ne.jp/rubikitch/20080923/1222104034
 (require 'open-junk-file)
 (setq open-junk-file-format "~/Dropbox/junk/%Y%m%d-%H%M%S." )
+
 
 ;; OS X とクリップボードを同期する
 (defun copy-from-osx ()
@@ -375,7 +366,7 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 
-;; s2-mode
+;; js2-mode
 ;; http://goo.gl/ny0vtW
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -408,7 +399,7 @@
 (require 'python)
 (require 'auto-complete-config)
 (require 'jedi)
-(setenv "PYTHONPATH" "~/my/py34/lib/python3.4/site-packages")
+(setenv "PYTHONPATH" "~/py34/lib/python3.4/site-packages")
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
@@ -450,15 +441,17 @@
                    (call-interactively command)))
                (message "Quit")
                (throw 'end-flag t)))))))
-
 (global-set-key "\C-c\C-r" 'my-window-resizer)
+
 
 ;; visual-regexp
 ;;; https://github.com/benma/visual-regexp.el
 (require 'visual-regexp)
 (global-set-key "\M-%" 'vr/query-replace)
 
+
 ;;;; migemo
+;;; http://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html
 ;;; http://rubikitch.com/2014/08/20/migemo/
 (require 'migemo)
 (setq migemo-command "cmigemo")
@@ -469,12 +462,6 @@
 (setq migemo-coding-system 'utf-8-unix)
 (load-library "migemo")
 (migemo-init)
-
-
-;; rainbow-delimiters
-;;; http://qiita.com/ncaq/items/5a1d102723fec11a8bff
-(require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode t)
 
 
 ;;;; rst.el
@@ -519,7 +506,6 @@
 ;; http://d.hatena.ne.jp/rubikitch/20090220/text_adjust
 ;; http://rubikitch.com/f/text-adjust.el
 ;; http://rubikitch.com/f/mell.el
-
 (require 'text-adjust)
 (defun text-adjust-space-before-save-if-needed ()
   (when (memq major-mode
@@ -536,7 +522,6 @@
       '("~/.emacs.d/mySnippets"
 	"~/.emacs.d/snippets"
 	))
-
 (yas-global-mode 1)
 
 ;; download snippets from GitHub
