@@ -175,12 +175,19 @@ $ curl -O http://rubikitch.com/f/mell.el
 
 ## Python の設定
 
+普段使い用の Python 3.4 環境を作る。
+`pip install -r ファイル` でパッケージをまとめてインストールする。
+
 ```zsh
 $ pyvenv-3.4 ~/py34
-$ ~/py34/bin/pip install -r ~/Dropbox/dev/python34_freeze.txt
+$ ~/py34/bin/pip install -r ~/dotfiles/py34_freeze.txt
+```
 
+Python 2.7 も `~/` に環境を作る。
+`virtualenv -p インタプリタ` でインタプリタを指定する。
+
+```zsh
 $ pip install virtualenv
-$ virtualenv -p インタプリタを指定
 $ virtualenv -p /opt/local/bin/python2.7 py27
 ```
 
