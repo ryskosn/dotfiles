@@ -6,7 +6,7 @@
 (source marmalade)
 (source org)
 
-;; Anything
+;; Anything (helm?)
 (depends-on "anything")
 
 ;; Appearance
@@ -75,6 +75,5 @@
 ;; (depends-on "pbcopy")
 ;; (depends-on "popup")
 (depends-on "powerline")
-;; (depends-on "quickrun")
 ;; (depends-on "wgrep")
 ;; (depends-on "yascroll")

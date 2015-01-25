@@ -9,10 +9,10 @@
 ;; (load-theme 'misterioso t)
 
 ;; 言語を日本語とする
-(set-language-environment 'Japanese)
+;; (set-language-environment 'Japanese)
 
 ;; 極力 UTF-8 とする
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
 
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
@@ -280,7 +280,7 @@
 ;; http://d.hatena.ne.jp/rubikitch/20080923/1222104034
 (require 'open-junk-file)
 (setq open-junk-file-format "~/Dropbox/junk/%Y%m%d-%H%M%S." )
-
+(global-set-key (kbd "C-x j") 'open-junk-file)
 
 ;; OS X とクリップボードを同期する
 (defun copy-from-osx ()

@@ -1,0 +1,17 @@
+beautifulsoup4
+epc
+feedparser
+Flask
+gnureadline
+ipython
+jedi
+MkDocs
+pelican
+pytz
+readline
+requests
+Sphinx
+sphinxjp.themes.basicstrap
+twilio
+virtualenv
+watchdog
