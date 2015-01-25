@@ -93,6 +93,10 @@ alias ls='gls -a --color=auto'
 alias ll='gls -l --color=auto'
 alias lls='ls -a' 
 
+alias find='gfind'
+alias xargs='gxargs'
+alias grep='grep --color=auto'
+
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
