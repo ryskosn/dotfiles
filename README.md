@@ -159,7 +159,7 @@ $ sudo make osx-install
 
 ### text-adjust.el
 
-```
+```zsh
 $ cd ~/.emacs.d/
 $ mkdir elisp
 $ cd elisp
@@ -191,6 +191,12 @@ $ pip install virtualenv
 $ virtualenv -p /opt/local/bin/python2.7 py27
 ```
 
+### pip の更新
+
+```zsh
+$ pip install --upgrade pip
+```
+
 ### Python Jedi
 
 ```zsh
@@ -202,11 +208,56 @@ $ pip install epc
 - http://cortyuming.hateblo.jp/entry/20130415/p1
 
 
+## Ruby の設定
+Python でいうところの virtualenv のようなものは rbenv を使うのがよさそう。
+このあたりは Python と全く同じことができるわけではないので頭を切り替える。
+
+- http://momijiame.tumblr.com/post/66188370081/mac-rbenv-ruby
+- http://d.hatena.ne.jp/ryskosn/20140913/1410621955
+
+```zsh
+$ sudo port install rbenv
+$ sudo port install ruby-build
+```
+
+`.zshrc` に PATH を追加する。
+
+```.zshrc
+export PATH="$HOME/.rbenv:$PATH"
+eval "$(rbenv init - zsh)"
+```
+
+インストールできる ruby 処理系の一覧を表示する。
+
+```zsh
+$ rbenv install -l
+```
+
+openssl, readline, liviconv のインストール先を指定した形でインストールする。
+
+```zsh
+$ RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/local --with-readline-dir=/opt/local --with-iconv-dir=/opt/local" rbenv install 2.1.1
+```
+
+インストール後に rehash する。
+
+```zsh
+$ rbenv rehash
+```
+
+インストール済のバージョンを表示する。
+
+```zsh
+$ rbenv versions
+```
+
+
+
 ## q のインストール
 
 - https://github.com/harelba/q
 
-single file をダウンロードして ~/bin に置く
+single file をダウンロードして `~/bin` に置く。
 
 ```zsh
 $ chmod +x q
@@ -219,7 +270,7 @@ python 2.7 にする
 #!/Users/ryosuke/py27/bin/python
 ```
 
-.zshrc に PATH を追加する
+`.zshrc` に PATH を追加する
 
 ```.zshrc
 export PATH="$HOME/bin:$PATH"
