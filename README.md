@@ -209,6 +209,31 @@ $ pip install epc
 
 
 ## Ruby の設定
+
+### MacPorts を使う場合
+
+```zsh
+# 入れられるバージョンを確認する
+$ port search ruby* | grep ^ruby
+# ruby 2.2 をインストールする
+$ sudo port install ruby22
+```
+
+下記コマンドでメインで使用する ruby を選択する。
+
+```zsh
+% sudo port select --set ruby ruby22
+```
+
+シェルを再起動する。
+
+```zsh
+% source ~/.zshrc
+```
+
+これでもいいかも。
+
+### rbenv を使う場合
 Python でいうところの virtualenv のようなものは rbenv を使うのがよさそう。
 このあたりは Python と全く同じことができるわけではないので頭を切り替える。
 
@@ -333,7 +358,7 @@ or direct download
 
 ## Command hotkey
 
-Cmd + spc
+`Cmd + spc`
 When activated switch keyboard to U.S.
 
 
@@ -355,10 +380,9 @@ Show icon in dock
 #### 一般
 スペースの入力 -> 半角にする
 キー設定の選択 -> カスタム、インポートする
-`Dropbox/Backup/` にあるテキストファイルをインポートする
+`GoogleIME_keymap.txt` をインポートする
 
-```
-```
+
 
 ### Advanced
 
@@ -378,19 +402,22 @@ Show icon in dock
 
 - Chrome
  - https://www.google.co.jp/chrome/browser/desktop/index.html
- - google アカウントでログイン、同期パスワードを入力する
+ - Google アカウントでログイン、同期パスワードを入力する
 
 - Firefox
  - https://download.mozilla.org/?product=firefox-aurora-latest-l10n&os=osx&lang=ja-JP-mac
+ - Firefox Developper Edition は青ベースのアイコンが格好いい。
 
 - CotEditor
  - http://coteditor.com
 
 - Atom
+ - https://atom.io/
 
 - XamarineStudio
 
 - PyCharm
+ - https://www.jetbrains.com/pycharm/download/
 
 - Dropbox
  - https://www.dropbox.com/downloading?src=index
@@ -398,10 +425,16 @@ Show icon in dock
 - KeePassX
  - http://www.keepassx.org/downloads/
 
+- Skype
+ - http://www.skype.com/en/download-skype/skype-for-mac/downloading/
+
+- Shades
+ - http://www.charcoaldesign.co.uk/shades
+
 
 # App Store Apps
 
-- YoruFukurou
+- YoruFukurou or Twitter for Mac
 - Wunderlist?
 - Pocket
 - Kobito
