@@ -1,10 +1,14 @@
-# PATH Config
+# PATH Settings
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="$HOME/py34/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
+
 export PATH="$HOME/.rbenv:$PATH"
-export PATH="$HOME/bin:$PATH"
 eval "$(rbenv init - zsh)"
+
+export PATH="$HOME/bin:$PATH"
+
+
 
 # language environment
 export LANG=ja_JP.UTF-8
@@ -36,7 +40,7 @@ colors
 
 # LS_COLORS
 # http://qiita.com/yuyuchu3333/items/84fa4e051c3325098be3
-eval $(gdircolors $HOME/src/dircolors-solarized/dircolors.ansi-universal)
+# eval $(gdircolors $HOME/src/dircolors-solarized/dircolors.ansi-universal)
 
 if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
