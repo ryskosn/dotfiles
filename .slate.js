@@ -23,7 +23,7 @@ var util = {
 };
 
 
-// Alt + U 左右に飛ばす
+// Alt + U 左半分 or 右半分
 slate.bind(util.key('u'), slate.operation('chain', {
   operations: _.map(['left', 'right'], function(d) {
     return slate.operation('push', {
@@ -34,7 +34,7 @@ slate.bind(util.key('u'), slate.operation('chain', {
 }));
  
 
-// Alt + I 上下に飛ばす
+// Alt + I 上半分 or 右半分
 slate.bind(util.key('i'), slate.operation('chain', {
   operations: _.map(['top', 'bottom'], function(d) {
     return slate.operation('push', {
