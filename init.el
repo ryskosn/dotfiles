@@ -4,15 +4,18 @@
 ;; http://d.hatena.ne.jp/aoe-tk/20130210/1360506829
 ;; http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e#2-1
 ;; (setq custom-theme-directory "~/.emacs.d/themes/")
-(load-theme 'wombat t)
+;; (load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
-;; (load-theme 'misterioso t)
+(load-theme 'misterioso t)
 
 ;; 言語を日本語とする
 ;; (set-language-environment 'Japanese)
 
 ;; 極力 UTF-8 とする
 (prefer-coding-system 'utf-8-unix)
+
+;; 曜日表記を英語にする
+(setq system-time-locale "C")
 
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
@@ -224,23 +227,27 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/Org/plan.org" "Inbox")
-	 "* TODO %?\n %U" :prepend t :empty-lines 1)
+      '(
+	;; ("t" "Todo" entry (file+headline "~/Dropbox/Org/plan.org" "Inbox")
+	;;  "* TODO %?\n %U" :prepend t :empty-lines 1)
 
 	("n" "Note" entry (file "~/Dropbox/Org/note.org")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	("N" "Note clip" entry (file "~/Dropbox/Org/note.org")
-	 "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+	;; ("N" "Note clip" entry (file "~/Dropbox/Org/note.org")
+	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
 
 	("f" "Forex" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	("F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
-	 "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+	;; ("F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
+	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
 
 	))
 
+(add-to-list 'org-capture-templates
+             '("d" "Diary" entry (file "diary.org")
+               "* %U %?\n%i\n"))
 
 ;; http://d.hatena.ne.jp/tamura70/20100208/org
 ;; アジェンダ表示の対象ファイル
