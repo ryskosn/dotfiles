@@ -7,6 +7,7 @@
 ;; (load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
 (load-theme 'misterioso t)
+;;
 
 ;; 言語を日本語とする
 ;; (set-language-environment 'Japanese)
