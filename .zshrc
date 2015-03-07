@@ -3,8 +3,8 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="$HOME/py34/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
-export PATH="$HOME/.rbenv:$PATH"
-eval "$(rbenv init - zsh)"
+# export PATH="$HOME/.rbenv:$PATH"
+# eval "$(rbenv init - zsh)"
 
 export PATH="$HOME/bin:$PATH"
 
