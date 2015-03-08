@@ -3,3 +3,5 @@
 	email = ryskosn@gmail.com
 [push]
 	default = simple
+[url "git@github.com:"]
+	pushinsteadof = https://github.com/
