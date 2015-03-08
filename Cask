@@ -49,6 +49,7 @@
 (depends-on "coffee-mode")
 (depends-on "js2-mode")
 (depends-on "json-mode")
+(depends-on "jade-mode")
 (depends-on "markdown-mode")
 (depends-on "tuareg")
 (depends-on "web-mode")

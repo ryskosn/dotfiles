@@ -3,10 +3,19 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="$HOME/py34/bin:$PATH"
 export PATH="$HOME/.cask/bin:$PATH"
 
-export PATH="$HOME/.rbenv:$PATH"
-eval "$(rbenv init - zsh)"
-
 export PATH="$HOME/bin:$PATH"
+
+# export PATH="$HOME/.rbenv:$PATH"
+# eval "$(rbenv init - zsh)"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+# nvm
+[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+
+# nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 
 
@@ -91,7 +100,7 @@ setopt auto_menu
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
-# Alias
+## Alias
 # coreutils をインストールする
 alias ls='gls -a --color=auto'
 alias ll='gls -l --color=auto'
@@ -101,15 +110,12 @@ alias find='gfind'
 alias xargs='gxargs'
 alias grep='grep --color=auto'
 
+# add option
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
- 
 alias mkdir='mkdir -p'
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-# nvm
-[[ -s ~/.nvm/nvm.sh ]] && source ~/.nvm/nvm.sh
+# Git
+alias gst='git status'
 
