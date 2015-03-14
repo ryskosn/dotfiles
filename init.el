@@ -199,7 +199,7 @@
 		("anything" :regexp t :height 0.5)
 		("*Backtrace*")
 		("*quickrun*" :height 0.4)
-		("*magit*" :regexp t :height 0.5)
+		("magit" :regexp t :height 0.5)
 		("*Dired*" :height 0.5)
 		("COMMIT_EDITMSG")
                 ("*sdic*" :noselect)
