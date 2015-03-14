@@ -203,7 +203,6 @@
 		("*Dired*" :height 0.5)
 		("COMMIT_EDITMSG")
                 ("*sdic*" :noselect)
-                ("magit" :regexp t :height 0.5)
 		)
               popwin:special-display-config))
 (define-key global-map (kbd "C-x p") 'popwin:display-last-buffer)
@@ -547,7 +546,7 @@
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
 
-(require 'sws-mode)
+;; (require 'sws-mode)
 (require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
