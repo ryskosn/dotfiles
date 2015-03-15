@@ -119,3 +119,8 @@ alias mkdir='mkdir -p'
 # Git
 alias gst='git status'
 
+
+## PostgreSQL
+# http://succzero.hatenablog.com/entry/2014/09/21/133315
+export PGDATA=/opt/local/var/db/postgresql94/defaultdb
+
