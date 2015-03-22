@@ -178,11 +178,19 @@
 ;; anything で kill ring を使う
 (global-set-key (kbd "M-y") 'anything-show-kill-ring)
 
-;; C-x o (other-window) を C-t に割り当てる
-(global-set-key (kbd "C-t") 'other-window)
 ;; M-x anything (anything) を C-o に割り当てる
 (global-set-key (kbd "C-o") 'anything)
 
+
+;; C-x o (other-window) の代わり
+;; (global-set-key (kbd "C-t") 'other-window)
+;; http://d.hatena.ne.jp/rubikitch/20100210/emacs
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (other-window 1))
+(global-set-key (kbd "C-t") 'other-window-or-split)
 
 
 ;;;; popwin
