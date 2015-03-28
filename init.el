@@ -7,7 +7,10 @@
 ;; (load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
 (load-theme 'misterioso t)
-;;
+
+
+;; ------------------------------------------------------------------------
+;; @ general
 
 ;; 言語を日本語とする
 ;; (set-language-environment 'Japanese)
@@ -21,6 +24,9 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+;; scratch の初期メッセージをオフにする
+(setq initial-scratch-message "")
+
 ;; バックアップファイルを作らない
 (setq make-backup-files nil)
 
@@ -30,15 +36,34 @@
 ;; Calendar 月曜始まりにする
 (setq calendar-week-start-day 1)
 
+;; 標準の祝日を利用しない
+(setq calendar-holidays nil)
+
 ;; メニューバーを非表示
 (menu-bar-mode -1)
+
+;; モードラインに時間を表示する
+(display-time)
 
 ;; カーソル点滅
 (blink-cursor-mode 1)
 
+;; バッファ再読み込み
+(global-auto-revert-mode 1)
+
 ;; 行番号の表示
 (global-linum-mode)
 (setq linum-format "%4d ")
+
+;; yes or no を y or n にする
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; 補完時に大文字小文字を区別しない
+(setq completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+
+;; 補完可能なものを随時表示（少しうるさい）
+(icomplete-mode 1)
 
 ;; 現在行をハイライト
 ;;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
@@ -59,21 +84,6 @@
 (show-paren-mode t)   ; 有効化
 (setq show-paren-delay 0)   ; 表示までの秒数
 
-;; モードラインに時間を表示する
-(display-time)
-
-;; scratch の初期メッセージをオフにする
-(setq initial-scratch-message "")
-
-;; yes or no を y or n にする
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; C-h を backspace にする
-(global-set-key (kbd "C-h") 'delete-backward-char)
-
-;; help をC-x ? に割り当てる
-(global-set-key (kbd "C-x ?") 'help-command)
-
 ;; Command を Meta キーとする
 ;; http://qiita.com/hayamiz/items/0f0b7a012ec730351678
 (setq ns-command-modifier (quote meta))
@@ -90,22 +100,20 @@
 (require 'wdired)
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
-;;; 補完時に大文字小文字を区別しない
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
-
-;;; 補完可能なものを随時表示
-;;; 少しうるさい
-(icomplete-mode 1)
-
-;; バッファ再読み込み
-(global-auto-revert-mode 1)
-
 ;; バッファ名を変更する
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-;; 各種キーバインド設定
+
+;; -------------------------------------------------------------------------
+;; @ 各種キーバインド設定
+
+;; C-h を backspace にする
+(global-set-key (kbd "C-h") 'delete-backward-char)
+
+;; help をC-x ? に割り当てる
+(global-set-key (kbd "C-x ?") 'help-command)
+
 ;; http://tech.kayac.com/archive/emacs.html
 (global-set-key (kbd "C-c C-a")	'align)
 (global-set-key (kbd "C-c M-a") 'align-regexp)
@@ -114,6 +122,10 @@
 (global-set-key (kbd "C-M-r")	'replace-regexp)
 ;; (global-set-key (kbd "C-m")	'newline-and-indent)
 
+
+
+;; -------------------------------------------------------------------------
+;; @ Package, Cask, auto-install
 
 ;; Cask
 ;; http://cask.readthedocs.org/en/latest/guide/usage.html
@@ -147,10 +159,12 @@
   (global-undo-tree-mode))
 
 
+;; -------------------------------------------------------------------------
+;; @ Anything
+
 ;; anything.el を有効にする
 (require 'anything-startup)
 (require 'anything-config)
-
 (require 'anything-match-plugin)
 (require 'anything-complete)
 (anything-read-string-mode 1)
@@ -194,7 +208,9 @@
 (global-set-key (kbd "C-t") 'other-window-or-split)
 
 
-;;;; popwin
+;; -------------------------------------------------------------------------
+;; @ popwin
+
 ;; http://valvallow.blogspot.jp/2011/03/emacs-popwinel.html
 
 (require 'popwin)
@@ -216,10 +232,14 @@
 (define-key global-map (kbd "C-x p") 'popwin:display-last-buffer)
 
 
+;; -------------------------------------------------------------------------
+;; @ org-mode
+
 ;; org-remember の設定
 (require 'org)
 
 (setq org-src-fontify-natively t)
+
 ;; http://d.hatena.ne.jp/tamura70/20100203/org
 ;;;(define-key global-map "\C-ca" 'org-agenda)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -263,11 +283,10 @@
 ;; http://d.hatena.ne.jp/tamura70/20100208/org
 ;; アジェンダ表示の対象ファイル
 (setq org-agenda-files (list org-directory))
+
 ;; アジェンダ表示で下線を用いる
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 (setq hl-line-face 'underline)
-;; 標準の祝日を利用しない
-(setq calendar-holidays nil)
 
 ;; org-mode 折り返しの設定
 ;; http://d.hatena.ne.jp/stakizawa/20091025/t1
@@ -280,6 +299,9 @@
         (t
          (setq truncate-lines nil))))
 
+
+;; -------------------------------------------------------------------------
+;; @ auto-complete
 
 ;; auto-complete.el
 (require 'auto-complete)
@@ -346,6 +368,9 @@
 ;; (key-chord-define-global "df" 'my-insert-date)
 
 
+;; -------------------------------------------------------------------------
+;; @ autoinsert
+
 ;; autoinsert
 ;; http://ymotongpoo.hatenablog.com/entry/2012/12/02/190248
 (require 'autoinsert)
@@ -384,14 +409,9 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 
-;; js2-mode
-;; http://goo.gl/ny0vtW
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-
-;;;; powerline
-;;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
+;; powerline
+;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
 ;; (require 'powerline)
 ;; (powerline-default-theme)
 
@@ -408,18 +428,6 @@
 
 ;; http://qiita.com/catatsuy/items/886f1e0632c0b2760fb4
 ;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" 'title "あ")
-
-
-;; jedi Python
-;;; http://d.hatena.ne.jp/CortYuming/20130415/p1
-;;; http://d.hatena.ne.jp/n-channel/20131220/1387551080
-(require 'epc)
-(require 'python)
-(require 'auto-complete-config)
-(require 'jedi)
-(setenv "PYTHONPATH" "~/py34/lib/python3.4/site-packages")
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
 
 
 ;; window resize
@@ -468,9 +476,11 @@
 (global-set-key "\M-%" 'vr/query-replace)
 
 
-;;;; migemo
-;;; http://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html
-;;; http://rubikitch.com/2014/08/20/migemo/
+;; -------------------------------------------------------------------------
+;; @ migemo
+
+;; http://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html
+;; http://rubikitch.com/2014/08/20/migemo/
 (require 'migemo)
 (setq migemo-command "cmigemo")
 (setq migemo-options '("-q" "--emacs"))
@@ -482,7 +492,28 @@
 (migemo-init)
 
 
-;;;; rst.el
+;; -------------------------------------------------------------------------
+;; @ Languages
+
+;; jedi Python
+;; http://d.hatena.ne.jp/CortYuming/20130415/p1
+;; http://d.hatena.ne.jp/n-channel/20131220/1387551080
+(require 'epc)
+(require 'python)
+(require 'auto-complete-config)
+(require 'jedi)
+(setenv "PYTHONPATH" "~/py34/lib/python3.4/site-packages")
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
+
+;; js2-mode
+;; http://goo.gl/ny0vtW
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+
+;; rst.el
 ;; http://ymotongpoo.hatenablog.com/entry/2012/12/02/190248
 (require 'rst)
 ;; 拡張子の*.rst, *.restのファイルをrst-modeで開く
@@ -495,6 +526,13 @@
 (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 ;; 見出しを設定する 
 (global-set-key "\C-c=" 'rst-adjust)
+
+
+;; jade
+;; (require 'sws-mode)
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+
 
 
 ;;;; flex-autopair.el
@@ -515,7 +553,10 @@
 (global-set-key (kbd "<f5>") 'quickrun-sc)
 
 
-;;;; magit
+;; ------------------------------------------------------------------------
+;; @ Git
+
+;; magit
 ;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
 (require 'magit)
 
@@ -533,7 +574,9 @@
 (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
 
 
-;;;; yasnippet
+;; -------------------------------------------------------------------------
+;; @ yasnippet
+
 ;; http://konbu13.hatenablog.com/entry/2014/01/12/113300
 (require 'yasnippet)
 (setq yas-snippet-dirs
@@ -553,9 +596,5 @@
 ;; view, edit snippet
 (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
-
-;; (require 'sws-mode)
-(require 'jade-mode)
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 ;;; init.el ends here
