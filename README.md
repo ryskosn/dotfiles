@@ -108,8 +108,29 @@ $ sudo port install findutils
 
 - http://iterm2.com/downloads.html
 
-キー設定
-zsh の設定
+Profiles タブで Default プロファイルをコピーして Copy of Default を自分用に設定する
+
+### テキスト設定
+
+Profiles -> General -> Text
+
+- Cursor を Box に
+- Blinking cursor にチェック
+- Font は 12pt Monaco にしておく
+
+### キー設定
+
+Profiles -> General -> Keys
+
+- Left option key act as: Normal
+- Right option key act as: +Esc
+
+Keys
+
+- Left command key: Right Option
+
+### zsh の設定
+
 Profiles -> General -> Command
 
 ```
