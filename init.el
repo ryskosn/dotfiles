@@ -550,4 +550,10 @@
 (require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
+
+;;;; sound-editor
+;; http://pokutuna.hatenablog.com/entry/2012/10/09/154109
+(require 'sound-editor)
+
+
 ;;; init.el ends here

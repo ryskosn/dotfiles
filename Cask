@@ -78,3 +78,4 @@
 (depends-on "powerline")
 ;; (depends-on "wgrep")
 ;; (depends-on "yascroll")
+
