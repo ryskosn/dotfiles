@@ -610,7 +610,7 @@
 (setq frame-background-mode 'dark)
 ;; 全部スペースでインデントしましょう
 (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
-;; 見出しを設定する 
+;; 見出しを設定する
 (global-set-key "\C-c=" 'rst-adjust)
 
 
