@@ -41,6 +41,7 @@
 ;; (depends-on "key-chord")
 (depends-on "sequential-command")
 (depends-on "smartrep")
+(depends-on "electric-spacing")
 
 ;; Org-mode
 (depends-on "org-plus-contrib")

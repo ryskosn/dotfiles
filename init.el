@@ -395,6 +395,14 @@
 (require 'auto-complete)
 (global-auto-complete-mode t)
 
+;; http://torotoki.hatenablog.com/entry/2013/06/05/032527
+(set-face-background 'ac-completion-face "#333333")
+(set-face-foreground 'ac-candidate-face "#666666")
+(set-face-background 'ac-selection-face "#666666")
+(set-face-foreground 'popup-summary-face "white")  ;; 候補のサマリー部分
+(set-face-background 'popup-tip-face "cyan")  ;; ドキュメント部分
+(set-face-foreground 'popup-tip-face "white")
+
 
 ;; -------------------------------------------------------------------------
 ;; @ yasnippet
@@ -591,6 +599,8 @@
 (setenv "PYTHONPATH" "~/py34/lib/python3.4/site-packages")
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
+;; electric-spacing-mode
+(add-hook 'python-mode-hook #'electric-spacing-mode)
 
 
 ;; js2-mode
@@ -683,10 +693,16 @@
 (require 'magit)
 
 
+;; from http://support.markedapp.com/kb/how-to-tips-and-tricks/marked-bonus-pack-scripts-commands-and-bundles
 
-;;;; sound-editor
-;; http://pokutuna.hatenablog.com/entry/2012/10/09/154109
-(require 'sound-editor)
+(defun markdown-preview-file ()
+  "run Marked on the current file and revert the buffer"
+  (interactive)
+  (shell-command
+   (format "open -a /Applications/Marked.app %s"
+       (shell-quote-argument (buffer-file-name))))
+)
+(global-set-key (kbd "C-c m") 'markdown-preview-file)
 
 
 ;;; init.el ends here

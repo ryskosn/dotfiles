@@ -58,12 +58,12 @@ fi
 
 # emacs 風キーバインドにする
 bindkey -e
- 
+
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=10000000
 SAVEHIST=10000000
- 
+
 # プロンプト
 # 2行表示
 PROMPT="%{${fg[red]}%}[%n@%m]%{${reset_color}%} %~
