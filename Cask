@@ -13,13 +13,14 @@
 (depends-on "highlight-symbol")
 (depends-on "popwin")
 (depends-on "rainbow-delimiters")
+(depends-on "powerline")
 
 ;; auto-complete
 (depends-on "auto-complete")
 (depends-on "ac-c-headers")
 (depends-on "ac-dabbrev")
-;; (depends-on "fuzzy")
-;; (depends-on "popup")
+(depends-on "fuzzy")
+(depends-on "popup")
 
 ;; auto-install
 (depends-on "auto-install")
@@ -63,8 +64,8 @@
 (depends-on "visual-regexp")
 
 ;; Search
-;; (depends-on "ag")
-;; (depends-on "anzu")
+(depends-on "ag")
+(depends-on "anzu")
 (depends-on "migemo")
 
 ;; Undo
@@ -73,10 +74,9 @@
 ;; Others
 ;; (depends-on "browse-kill-ring")
 ;; (depends-on "exec-path-from-shell")
-;; (depends-on "expand-region")
+(depends-on "expand-region")
 ;; (depends-on "pbcopy")
 ;; (depends-on "popup")
-(depends-on "powerline")
 ;; (depends-on "wgrep")
 ;; (depends-on "yascroll")
 

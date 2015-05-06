@@ -3,10 +3,14 @@
 ;; Color theme
 ;; http://d.hatena.ne.jp/aoe-tk/20130210/1360506829
 ;; http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e#2-1
-;; (setq custom-theme-directory "~/.emacs.d/themes/")
+(setq custom-theme-directory "~/.emacs.d/themes/")
 ;; (load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
-(load-theme 'misterioso t)
+
+;; https://github.com/hbin/molokai-theme
+(load-theme 'molokai t)
+
+;; (load-theme 'misterioso t)
 
 
 ;; ------------------------------------------------------------------------
@@ -171,10 +175,49 @@
         '(:eval (format my-mode-line-format
         (count-lines (point-max) (point-min))))))
 
+
+;; https://github.com/shibayu36/emacs/blob/8376ba4e4b4d5cb4668e848c9a494b287232ea6f/emacs.d/inits/01-mode-line.el
+;;; modeの名前を自分で再定義
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (flymake-mode . " Fm")
+    (paredit-mode . "")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (git-gutter-mode . "")
+    (anzu-mode . "")
+    (yas-minor-mode . "")
+    (guide-key-mode . "")
+
+    ;; Major modes
+    (fundamental-mode . "Fund")
+    (dired-mode . "Dir")
+    (lisp-interaction-mode . "Li")
+    (cperl-mode . "Pl")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (emacs-lisp-mode . "El")
+    (markdown-mode . "Md")))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
 ;; powerline
 ;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
-;; (require 'powerline)
-;; (powerline-default-theme)
+
+
+
 
 
 ;; -------------------------------------------------------------------------
@@ -190,9 +233,9 @@
 ;; IME
 ;; http://b.mgrace.info/?p=1128
 (setq default-input-method "MacOSX")
-;; ;; emacs 起動時は英数モードから始める  
+;; ;; emacs 起動時は英数モードから始める
 ;; (add-hook 'after-init-hook 'mac-change-language-to-us)
-;; minibuffer 内は英数モードにする  
+;; minibuffer 内は英数モードにする
 ;; (add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
 ;; ;; backslash を先
 ;; (mac-translate-from-yen-to-backslash)
@@ -411,10 +454,11 @@
 (require 'yasnippet)
 (setq yas-snippet-dirs
       '("~/.emacs.d/mySnippets"
-	"~/.emacs.d/snippets"
+        "~/.emacs.d/snippets"
 	))
 (yas-global-mode 1)
 
+(custom-set-variables '(yas-trigger-key "TAB"))
 ;; download snippets from GitHub
 ;; ~/.emacs.d/
 ;; % git clone https://github.com/AndreaCrotti/yasnippet-snippets.git snippets
@@ -447,7 +491,7 @@
 
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
-    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))    
+    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
     ("%date%" . (lambda () (format-time-string "%Y-%m-%d %H:%M:%S")))
 ))
 
@@ -692,6 +736,10 @@
 ;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
 (require 'magit)
 
+
+
+;; ------------------------------------------------------------------------
+;; @ Markdown
 
 ;; from http://support.markedapp.com/kb/how-to-tips-and-tricks/marked-bonus-pack-scripts-commands-and-bundles
 
