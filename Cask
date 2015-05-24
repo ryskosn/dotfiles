@@ -54,6 +54,7 @@
 (depends-on "jade-mode")
 (depends-on "markdown-mode")
 (depends-on "tuareg")
+(depends-on "utop")
 (depends-on "web-mode")
 (depends-on "yaml-mode")
 
