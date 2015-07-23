@@ -200,18 +200,18 @@
     (emacs-lisp-mode . "El")
     (markdown-mode . "Md")))
 
-(defun clean-mode-line ()
-  (interactive)
-  (loop for (mode . mode-str) in mode-line-cleaner-alist
-        do
-        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-          (when old-mode-str
-            (setcar old-mode-str mode-str))
-          ;; major mode
-          (when (eq mode major-mode)
-            (setq mode-name mode-str)))))
-
-(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+;; (defun clean-mode-line ()
+;;   (interactive)
+;;   (loop for (mode . mode-str) in mode-line-cleaner-alist
+;;        do
+;;         (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+;;           (when old-mode-str
+;;             (setcar old-mode-str mode-str))
+;;           ;; major mode
+;;           (when (eq mode major-mode)
+;;             (setq mode-name mode-str)))))
+;;
+;; (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 ;; powerline
 ;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
@@ -759,5 +759,26 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+;; ------------------------------------------------------------------------
+;; @ Tuareg, OCaml
+
+;; https://github.com/realworldocaml/book/wiki/Installation-Instructions
+(require 'tuareg)
+(add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
+(setq auto-mode-alist
+      (append '(("\\.ml[ily]?$" . tuareg-mode)
+                ("\\.topml$" . tuareg-mode))
+              auto-mode-alist))
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(setq merlin-use-auto-complete-mode t)
+(setq merlin-error-after-save nil)
+(setq tuareg-use-smie nil)
+
+;;; 保存時に行末のスペースを削除
+;;;
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;; init.el ends here
