@@ -306,7 +306,7 @@
 ;; http://www.emacswiki.org/emacs/auto-install.el
 (when (require 'auto-install nil t)
   (setq auto-install-directory "~/.emacs.d/elisp/")
-  (auto-install-update-emacswiki-package-name t)
+  ;; (auto-install-update-emacswiki-package-name t)
   (auto-install-compatibility-setup))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -734,7 +734,7 @@
 
 ;; magit
 ;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
-(require 'magit)
+;; (require 'magit)
 
 
 
@@ -752,5 +752,12 @@
 )
 (global-set-key (kbd "C-c m") 'markdown-preview-file)
 
+;; ------------------------------------------------------------------------
+;; @ Server
+
+; server start for emacs-client
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;;; init.el ends here
