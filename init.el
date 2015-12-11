@@ -4,11 +4,11 @@
 ;; http://d.hatena.ne.jp/aoe-tk/20130210/1360506829
 ;; http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e#2-1
 (setq custom-theme-directory "~/.emacs.d/themes/")
-;; (load-theme 'wombat t)
+(load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
 
 ;; https://github.com/hbin/molokai-theme
-(load-theme 'molokai t)
+;; (load-theme 'molokai t)
 
 ;; (load-theme 'misterioso t)
 
@@ -122,9 +122,33 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
+
 ;; 行末の空白を強調表示
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
+
+;; trailing-whitespace 除外リスト
+;; http://qiita.com/tadsan/items/df73c711f921708facdc
+
+(defun my/disable-trailing-mode-hook ()
+  "Disable show tail whitespace."
+  (setq show-trailing-whitespace nil))
+
+(defvar my/disable-trailing-modes
+  '(comint-mode
+    eshell-mode
+    term-mode
+    calendar-mode
+    twittering-mode))
+(mapc
+ (lambda (mode)
+   (add-hook (intern (concat (symbol-name mode) "-hook"))
+             'my/disable-trailing-mode-hook))
+ my/disable-trailing-modes)
+
+;; 保存時に行末のスペースを削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 
 ;; タブをスペースで扱う
 (setq-default indent-tabs-mode nil)
@@ -402,7 +426,17 @@
 	("f" "Forex" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	;; ("F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
+	("c" "Forex Chart" entry (file+headline "~/Dropbox/Org/forex_chart.org" "Inbox")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
+
+   	("l" "Trade log Long" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
+	 "* %U %? Long%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
+
+   	("s" "Trade log Short" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
+	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
+
+
+	;; ("]F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
 
 	))
@@ -478,7 +512,7 @@
 (require 'autoinsert)
 
 ;; テンプレートのディレクトリ
-(setq auto-insert-directory "~/.emacs.d/template")
+(setq auto-insert-directory "~/.emacs.d/templates")
 
 ;; 各ファイルによってテンプレートを切り替える
 (setq auto-insert-alist
@@ -714,7 +748,9 @@
 (require 'text-adjust)
 (defun text-adjust-space-before-save-if-needed ()
   (when (memq major-mode
-              '(org-mode text-mode mew-draft-mode myhatena-mode))
+              '(org-mode text-mode Tuareg-mode ReST-mode
+                mew-draft-mode
+                myhatena-mode))
     (text-adjust-space-buffer)))
 (defalias 'spacer 'text-adjust-space-buffer)
 (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
@@ -770,8 +806,5 @@
 (setq merlin-error-after-save nil)
 (setq tuareg-use-smie nil)
 
-;;; 保存時に行末のスペースを削除
-;;;
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;; init.el ends here
