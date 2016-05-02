@@ -4,11 +4,11 @@
 ;; http://d.hatena.ne.jp/aoe-tk/20130210/1360506829
 ;; http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e#2-1
 (setq custom-theme-directory "~/.emacs.d/themes/")
-;; (load-theme 'wombat t)
+(load-theme 'wombat t)
 ;; (load-theme 'tango-dark t)
 
 ;; https://github.com/hbin/molokai-theme
-(load-theme 'molokai t)
+;; (load-theme 'molokai t)
 
 ;; (load-theme 'misterioso t)
 
@@ -80,18 +80,18 @@
 
 ;; 現在行をハイライト
 ;;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
-(defface hlline-face
-  '((((class color)
-      (background dark))
-     (:background "dark slate gray"))
-    (((class color)
-      (background light))
-     (:background  "#98FB98"))
-    (t
-     ()))
-  "*Face used by hl-line.")
-(setq hl-line-face 'hlline-face)
-(global-hl-line-mode)
+;; (defface hlline-face
+;;   '((((class color)
+;;       (background dark))
+;;      (:background "dark slate gray"))
+;;     (((class color)
+;;       (background light))
+;;      (:background  "#98FB98"))
+;;     (t
+;;      ()))
+;;   "*Face used by hl-line.")
+;; (setq hl-line-face 'hlline-face)
+;; (global-hl-line-mode)
 
 ;; paren-mode  対応する括弧を強調表示する
 (show-paren-mode t)   ; 有効化
@@ -126,6 +126,29 @@
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
 
+;; trailing-whitespace 除外リスト
+;; http://qiita.com/tadsan/items/df73c711f921708facdc
+
+(defun my/disable-trailing-mode-hook ()
+  "Disable show tail whitespace."
+  (setq show-trailing-whitespace nil))
+
+(defvar my/disable-trailing-modes
+  '(comint-mode
+    eshell-mode
+    term-mode
+    calendar-mode
+    twittering-mode))
+
+(mapc
+ (lambda (mode)
+   (add-hook (intern (concat (symbol-name mode) "-hook"))
+             'my/disable-trailing-mode-hook))
+ my/disable-trailing-modes)
+
+;; 保存時に行末のスペースを削除
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; タブをスペースで扱う
 (setq-default indent-tabs-mode nil)
 
@@ -142,6 +165,11 @@
 ;; バッファ名を変更する
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; diffのバッファを上下ではなく左右に並べる
+(setq ediff-split-window-function 'split-window-horizontally)
 
 
 ;; -------------------------------------------------------------------------
@@ -216,6 +244,26 @@
 ;; powerline
 ;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
 
+;; (require 'powerline)
+
+;; (set-face-attribute 'mode-line nil
+;;                     :foreground "#000"
+;;                     ;; :foreground "#fff"
+;;                     :background "#FF0066"
+;;                     :box nil)
+
+;; (set-face-attribute 'powerline-active1 nil
+;;                     :foreground "#000"
+;;                     ;; :foreground "#fff"
+;;                     :background "#FF6699"
+;;                     :inherit 'mode-line)
+
+;; (set-face-attribute 'powerline-active2 nil
+;;                     :foreground "#000"
+;;                     :background "#ffaeb9"
+;;                     :inherit 'mode-line)
+
+;; (powerline-default-theme)
 
 
 
@@ -239,6 +287,8 @@
 ;; (add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
 ;; ;; backslash を先
 ;; (mac-translate-from-yen-to-backslash)
+
+;; IME ON/OFF時のカーソルカラー
 
 ;; http://qiita.com/catatsuy/items/886f1e0632c0b2760fb4
 ;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" 'title "あ")
@@ -289,9 +339,9 @@
 ;; 使い方
 ;; http://emacs-jp.github.io/packages/package-management/package-el.html
 
-;; MELPAを追加
+;; MELPA を追加
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; Marmaladeを追加
+;; Marmalade を追加
 (add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; 初期化
 (package-initialize)
@@ -369,6 +419,7 @@
 ;; org-remember の設定
 (require 'org)
 
+;; コードブロックを当該言語のモードでハイライトする
 (setq org-src-fontify-natively t)
 
 ;; http://d.hatena.ne.jp/tamura70/20100203/org
@@ -393,23 +444,26 @@
 	;; ("t" "Todo" entry (file+headline "~/Dropbox/Org/plan.org" "Inbox")
 	;;  "* TODO %?\n %U" :prepend t :empty-lines 1)
 
-	("n" "Note" entry (file "~/Dropbox/Org/note.org")
+	("S" "SS" entry (file+headline "~/Dropbox/Org/ss.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	;; ("N" "Note clip" entry (file "~/Dropbox/Org/note.org")
-	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+	("d" "Diary" entry (file "~/Dropbox/Org/diary.org")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
+
+	("n" "Note" entry (file "~/Dropbox/Org/note.org")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
 	("f" "Forex" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	;; ("F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
-	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+   	("l" "Trade log Long" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
+	 "* %U %? Long%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
+
+   	("s" "Trade log Short" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
+	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
 
 	))
 
-(add-to-list 'org-capture-templates
-             '("d" "Diary" entry (file "diary.org")
-               "* %U %?\n%i\n"))
 
 ;; http://d.hatena.ne.jp/tamura70/20100208/org
 ;; アジェンダ表示の対象ファイル
@@ -430,6 +484,26 @@
         (t
          (setq truncate-lines nil))))
 
+;; http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/
+(defun org-sparse-tree-indirect-buffer (arg)
+  (interactive "P")
+  (let ((ibuf (switch-to-buffer (org-get-indirect-buffer))))
+    (condition-case _
+        (org-sparse-tree arg)
+      (quit (kill-buffer ibuf)))))
+(define-key org-mode-map (kbd "C-c /") 'org-sparse-tree-indirect-buffer)
+
+;; org-refile
+(setq org-refile-targets
+      (quote (
+              ;; ("note.org" :level . 2)
+              ("forex.org" :level . 1)
+              ("trading-method.org" :level . 2)
+              ("knowledge.org" :level . 1)
+              )))
+
+;; TODO 項目の追加 M-S-RET がなぜか効かないので
+(global-set-key (kbd "C-c t") 'org-insert-todo-heading)
 
 ;; -------------------------------------------------------------------------
 ;; @ auto-complete
@@ -670,8 +744,8 @@
 
 ;; jade
 ;; (require 'sws-mode)
-(require 'jade-mode)
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+;; (require 'jade-mode)
+;; (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 
 ;; quickrun
@@ -684,6 +758,7 @@
     (quickrun :start start :end end)
   (quickrun)))
 (global-set-key (kbd "<f5>") 'quickrun-sc)
+;; (global-set-key (kbd "C-c r") 'quickrun-sc)
 
 ;; fly-check
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -714,7 +789,12 @@
 (require 'text-adjust)
 (defun text-adjust-space-before-save-if-needed ()
   (when (memq major-mode
-              '(org-mode text-mode mew-draft-mode myhatena-mode))
+              '(org-mode
+                text-mode
+                Tuareg-mode
+                ReST-mode
+                mew-draft-mode
+                myhatena-mode))
     (text-adjust-space-buffer)))
 (defalias 'spacer 'text-adjust-space-buffer)
 (add-hook 'before-save-hook 'text-adjust-space-before-save-if-needed)
@@ -743,14 +823,14 @@
 
 ;; from http://support.markedapp.com/kb/how-to-tips-and-tricks/marked-bonus-pack-scripts-commands-and-bundles
 
-(defun markdown-preview-file ()
-  "run Marked on the current file and revert the buffer"
-  (interactive)
-  (shell-command
-   (format "open -a /Applications/Marked.app %s"
-       (shell-quote-argument (buffer-file-name))))
-)
-(global-set-key (kbd "C-c m") 'markdown-preview-file)
+;; (defun markdown-preview-file ()
+;;   "run Marked on the current file and revert the buffer"
+;;   (interactive)
+;;   (shell-command
+;;    (format "open -a /Applications/Marked.app %s"
+;;        (shell-quote-argument (buffer-file-name))))
+;; )
+;; (global-set-key (kbd "C-c m") 'markdown-preview-file)
 
 ;; ------------------------------------------------------------------------
 ;; @ Server
@@ -777,8 +857,89 @@
 (setq merlin-error-after-save nil)
 (setq tuareg-use-smie nil)
 
-;;; 保存時に行末のスペースを削除
-;;;
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Add opam emacs directory to the load-path
+(setq opam-share (substring (shell-command-to-string "opam config var
+   share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;; Load merlin-mode
+(require 'merlin)
+;; Start merlin on ocaml files
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+;; Enable auto-complete
+(setq merlin-use-auto-complete-mode 'easy)
+;; Use opam switch to lookup ocamlmerlin binary
+(setq merlin-command 'opam)
+
+
+;; ------------------------------------------------------------------------
+;; @ ediff
+
+;; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; diffのバッファを上下ではなく左右に並べる
+(setq ediff-split-window-function 'split-window-horizontally)
+
+
+;; ------------------------------------------------------------------------
+;; @ C
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            (c-set-style "k&r")
+            (setq c-basic-offset 4)))
+
+;; ------------------------------------------------------------------------
+;; @ mql4
+
+(require 'mql-mode)
+
+(require 'electric-operator)
+(add-hook 'mql-mode-hook #'electric-operator-mode)
+(add-hook 'c-mode-hook #'electric-operator-mode)
+
+;; google-c-style.el
+;; (require 'google-c-style)
+;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+;; (add-hook 'mql-mode-hook 'google-set-c-style)
+;; (add-hook 'mql-mode-hook 'google-make-newline-indent)
+
+;; (add-hook 'c++-mode-common-hook 'google-set-c-style)
+;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+
+;; ------------------------------------------------------------------------
+;; @ PATH
+
+(add-to-list 'exec-path (expand-file-name "/opt/local/bin"))
+
+
+;; ------------------------------------------------------------------------
+;; @ Go
+
+;; http://qiita.com/koki_cheese/items/2e2ead918a1f1ac5bf6e
+;; http://unknownplace.org/archives/golang-editing-with-emacs.html
+
+(add-to-list 'exec-path (expand-file-name (concat (getenv "GOROOT") "/bin")))
+(add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
+(eval-after-load "go-mode"
+  '(progn
+     (require 'go-autocomplete)
+     (require 'auto-complete-config)
+     ;; eldoc
+     (add-hook 'go-mode-hook 'go-eldoc-setup)
+     (set-face-attribute 'eldoc-highlight-function-argument nil
+                         :underline t :foreground "green"
+                         :weight 'bold)
+     ;; gofmtをgoimportsに上書き
+     (setq gofmt-command "goimports")
+     ;; gofmt
+     (add-hook 'before-save-hook 'gofmt-before-save)
+     ;; key bindings
+     (define-key go-mode-map (kbd "M-.") 'godef-jump)
+     (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+     )
+  )
 
 ;;; init.el ends here

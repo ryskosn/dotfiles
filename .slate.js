@@ -32,7 +32,7 @@ slate.bind(util.key('u'), slate.operation('chain', {
     });
   })
 }));
- 
+
 
 // Alt + I 上半分 or 右半分
 slate.bind(util.key('i'), slate.operation('chain', {
@@ -55,7 +55,7 @@ var corners = slate.bind(util.key('o'), slate.operation('chain', {
     });
   })
 }));
-  
+
 
 // Alt + P 次のスクリーンへ飛ばす
 slate.bind(util.key('p'), function(win) {
@@ -81,19 +81,19 @@ var topLeft = slate.operation("corner", {
   "width"  : "screenSizeX/2",
   "height" : "screenSizeY/2"
 });
-  
+
 var topRight = slate.operation("corner", {
   "direction" : "top-right",
   "width"  : "screenSizeX/2",
   "height" : "screenSizeY/2"
 });
-  
+
 var bottomRight = slate.operation("corner", {
   "direction" : "bottom-right",
   "width"  : "screenSizeX/2",
   "height" : "screenSizeY/2"
 });
-  
+
 var bottomLeft = slate.operation("corner", {
   "direction" : "bottom-left",
   "width"  : "screenSizeX/2",
@@ -103,15 +103,15 @@ var bottomLeft = slate.operation("corner", {
 
 // [tab]+alt+shiftでアプリのウィンドウをタイル状に並べる
 var tileKey = "tab:alt;shift";
-  
+
 slate.bind(tileKey, function(win){
-  var appName = win.app().name();    
+  var appName = win.app().name();
   var tiled = {};
   tiled[appName] = {
     "operations" : [topLeft, topRight, bottomRight, bottomLeft],
     "main-first" : true,
     "repeat"     : true
-  };      
+  };
   var tiledLayout = slate.layout("tiledLayout", tiled);
   slate.operation("layout", {"name" : tiledLayout }).run();
   slate.operation("show", {"app" : appName}).run();
@@ -137,6 +137,7 @@ var launch_and_focus = function (target) {
 
 S.bind('t:alt', launch_and_focus('iTerm'));
 S.bind('c:alt', launch_and_focus('Google Chrome'));
-S.bind('f:alt', launch_and_focus('Finder'));
+// S.bind('f:alt', launch_and_focus('Finder'));
 S.bind('d:alt', launch_and_focus('Dictionary'));
-
+S.bind('s:alt', launch_and_focus('Slack'));
+// S.bind('v:alt', launch_and_focus('VMware Fusion'));

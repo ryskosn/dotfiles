@@ -30,6 +30,7 @@
 (depends-on "yasnippet")
 (depends-on "flex-autopair")
 (depends-on "quickrun")
+(depends-on "electric-operator")
 
 ;; File
 (depends-on "open-junk-file")
@@ -59,6 +60,11 @@
 (depends-on "web-mode")
 (depends-on "yaml-mode")
 
+;; Go
+(depends-on "go-mode")
+(depends-on "go-autocomplete")
+(depends-on "go-eldoc")
+
 ;; Python
 (depends-on "jedi")
 
@@ -81,4 +87,3 @@
 ;; (depends-on "popup")
 ;; (depends-on "wgrep")
 ;; (depends-on "yascroll")
-
