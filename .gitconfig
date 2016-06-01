@@ -5,3 +5,6 @@
 	default = simple
 [url "git@github.com:"]
 	pushinsteadof = https://github.com/
+[ghq]
+    root = ~/.ghq
+    root = ~/go/src

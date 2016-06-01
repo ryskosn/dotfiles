@@ -82,6 +82,7 @@
 (depends-on "undo-tree")
 
 ;; Others
+(depends-on "google-translate")
 ;; (depends-on "browse-kill-ring")
 ;; (depends-on "exec-path-from-shell")
 (depends-on "expand-region")

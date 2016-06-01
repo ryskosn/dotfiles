@@ -1,17 +1,9 @@
-# My dotfiles and setup script.
-
-Mac OSX で使っている dotfiles とセットアップ用スクリプト、手順書など。
-シェルスクリプトをもう少し整えたいところ。
-
-
-## Xcode Commandline Tools
+## Set up
 Xcode command line tools をインストールする。
 
 ```
 $ xcode-select —install
 ```
-
-## dotfiles
 
 dotfiles リポジトリを clone してくる。
 
@@ -20,64 +12,15 @@ $ git clone https://github.com/ryskosn/dotfiles.git
 $ bash osx_bootstrap.sh
 ```
 
-## MacPorts
+MacPorts をインストールする
 
 - https://www.macports.org/install.php
 
 ダウンロードしたパッケージスクリプトを展開する。
 
 ```
-$ sudo port selfupdate 
+$ sudo port selfupdate
 ```
-
-# System settings
-
-## キーボード
-
-修飾キー `CapsLock` キーを `Control` にする
-
-### ショートカット -> キーボード
-
-次のウィンドウを操作対象にする
-`Command + F1` -> `Option + Tab` に変更する
-
-### ショートカット -> 入力ソース
-
-前の入力ソースを選択 -> チェックを外す
-入力メニューの次のソースを選択
-`Opt + Cmd + spc` -> `Ctrl + ;`
-
-### ショートカット -> Spotlight
-
-Spotlight 検索フィールドを表示
-`Ctrl + spc` -> `Ctrl + ‘`
-
-
-## デスクトップとスクリーンセーバー
-
-デスクトップを無地の色にする
-半透明めにゅーばー
-
-## スクリーンセーバー
-
-Word of the day
-option Oxford dictionary
-
-## トラックパッド
-### ポイントとクリック
-
-タップでクリックを有効にする
-
-### スクロールとズーム
-スクロールの方向ナチュラルのチェックを外す
-
-## 共有
-コンピュータ名
-
-## セキュリティとプライバシー
-一般 すべてのアプリケーションを許可
-
-# MacPorts
 
 ```
 $ sudo port install emacs
@@ -103,6 +46,7 @@ $ sudo port install stunnel
 $ sudo port install coreutils
 $ sudo port install findutils
 ```
+
 
 ## iTerm2
 
@@ -152,7 +96,7 @@ $ cask install
 `cask install` の際に下記メッセージが出た。
 
 ```
-Select coding system (default raw-text): 
+Select coding system (default raw-text):
 ```
 `utf-8` を指定しておいた。
 
@@ -194,7 +138,7 @@ $ curl -O http://rubikitch.com/f/mell.el
 - http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e
 
 
-## Python の設定
+## Python
 
 普段使い用の Python 3.4 環境を作る。
 `pip install -r ファイル` でパッケージをまとめてインストールする。
@@ -228,118 +172,45 @@ $ pip install epc
 - http://d.hatena.ne.jp/n-channel/20131220/1387551080
 - http://cortyuming.hateblo.jp/entry/20130415/p1
 
+## Go
 
-## Ruby の設定
-
-### MacPorts を使う場合
-
-```zsh
-# 入れられるバージョンを確認する
-$ port search ruby* | grep ^ruby
-# ruby 2.2 をインストールする
-$ sudo port install ruby22
-```
-
-下記コマンドでメインで使用する ruby を選択する。
-
-```zsh
-% sudo port select --set ruby ruby22
-```
-
-シェルを再起動する。
-
-```zsh
-% source ~/.zshrc
-```
-
-これでもいいかも。
-
-### rbenv を使う場合
-Python でいうところの virtualenv のようなものは rbenv を使うのがよさそう。
-このあたりは Python と全く同じことができるわけではないので頭を切り替える。
-
-- http://momijiame.tumblr.com/post/66188370081/mac-rbenv-ruby
-- http://d.hatena.ne.jp/ryskosn/20140913/1410621955
-
-```zsh
-$ sudo port install rbenv
-$ sudo port install ruby-build
-```
-
-`.zshrc` に PATH を追加する。
-
-```.zshrc
-export PATH="$HOME/.rbenv:$PATH"
-eval "$(rbenv init - zsh)"
-```
-
-インストールできる ruby 処理系の一覧を表示する。
-
-```zsh
-$ rbenv install -l
-```
-
-openssl, readline, liviconv のインストール先を指定した形でインストールする。
-
-```zsh
-$ RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/local --with-readline-dir=/opt/local --with-iconv-dir=/opt/local" rbenv install 2.1.1
-```
-
-インストール後に rehash する。
-
-```zsh
-$ rbenv rehash
-```
-
-インストール済のバージョンを表示する。
-
-```zsh
-$ rbenv versions
-```
+later...
 
 
+## System settings
 
-## q のインストール
+キーボード
+修飾キー `CapsLock` キーを `Control` にする
 
-- https://github.com/harelba/q
+ショートカット -> キーボード
+次のウィンドウを操作対象にする
+`Command + F1` -> `Option + Tab` に変更する
 
-single file をダウンロードして `~/bin` に置く。
+ショートカット -> 入力ソース
 
-```zsh
-$ chmod +x q
-```
+前の入力ソースを選択 -> チェックを外す
+入力メニューの次のソースを選択
+`Opt + Cmd + spc` -> `Ctrl + ;`
 
-shebang を書き換えてインタプリタを変更する
-python 2.7 にする
+ショートカット -> Spotlight
 
-```.zshrc
-#!/Users/ryosuke/py27/bin/python
-```
-
-`.zshrc` に PATH を追加する
-
-```.zshrc
-export PATH="$HOME/bin:$PATH"
-```
-
-```zsh
-$ source .zshrc
-```
-
-q を実行してみる
-
-```zsh
-$ q -v
-```
+Spotlight 検索フィールドを表示
+`Ctrl + spc` -> `Ctrl + ‘`
 
 
-# GUI Apps
+- トラックパッド -> ポイントとクリック -> タップでクリックを有効にする
+- スクロールとズーム -> スクロールの方向ナチュラルのチェックを外す
+- 共有 -> コンピュータ名を修正する
+- セキュリティとプライバシー -> 一般 すべてのアプリケーションを許可
 
-## Finder
+
+## Other Apprications
+
+### Finder
 
 サイドバーからタグを削除、All my files を非表示、ホームディレクトリを表示など
 
-## Karabina
+### Karabina
 
 - https://pqrs.org/osx/karabiner/index.html.ja
 
@@ -350,7 +221,7 @@ $ q -v
 $ sh ~/dotfiles/karabiner-import.sh
 ```
 
-## Slate
+### Slate
 
 - https://github.com/jigish/slate
 
@@ -366,79 +237,52 @@ or direct download
 初回起動時にアクセシビリティ設定を許可する必要あり。
 起動したらメニューバーのアイコンをクリックして `Launch Slate On Login` を選択する。
 
-## Quicksilver
+
+### Quicksilver
 
 - http://qsapp.com/download.php
 
-### install with plugin
+#### install with plugin
 
-- chrome
+- Chrome
 - iTerm
 - shelf
 
 
-## Command hotkey
+#### Command hotkey
 
 `Cmd + spc`
 When activated switch keyboard to U.S.
 
-
 Show icon in dock
 
 
-## Google IME
+### Google IME
 
 - http://www.google.co.jp/ime/
 
-### システム環境設定
-キーボード
+システム環境設定 -> キーボード
 
 - ひらがな
 - U.S.
 
-の二択でOK
+の二択で OK
 
 #### 一般
-スペースの入力 -> 半角にする
-キー設定の選択 -> カスタム、インポートする
-`GoogleIME_keymap.txt` をインポートする
+
+- スペースの入力 -> 半角にする
+- キー設定の選択 -> カスタム、インポートする
+- `GoogleIME_keymap.txt` をインポートする
 
 
+#### Advanced
 
-### Advanced
-
-アルファベット -> 半角
-数字 -> 半角
-
-### サジェスト
-
-サジェスト件数 -> 5
-
-### Misc
-
-ログイン時に起動する
+- アルファベット -> 半角
+- 数字 -> 半角
+- サジェスト件数 -> 5
 
 
 ## Others
-
-- Chrome
- - https://www.google.co.jp/chrome/browser/desktop/index.html
- - Google アカウントでログイン、同期パスワードを入力する
-
-- Firefox
- - https://download.mozilla.org/?product=firefox-aurora-latest-l10n&os=osx&lang=ja-JP-mac
- - Firefox Developper Edition は青ベースのアイコンが格好いい。
-
-- CotEditor
- - http://coteditor.com
-
-- Atom
- - https://atom.io/
-
-- XamarineStudio
-
-- PyCharm
- - https://www.jetbrains.com/pycharm/download/
 
 - Dropbox
  - https://www.dropbox.com/downloading?src=index
@@ -446,17 +290,18 @@ Show icon in dock
 - KeePassX
  - http://www.keepassx.org/downloads/
 
-- Skype
- - http://www.skype.com/en/download-skype/skype-for-mac/downloading/
-
 - Shades
  - http://www.charcoaldesign.co.uk/shades
 
+- Chrome
+ - https://www.google.co.jp/chrome/browser/desktop/index.html
+ - Google アカウントでログイン、同期パスワードを入力する
 
-# App Store Apps
+- CotEditor
+ - http://coteditor.com
 
-- YoruFukurou or Twitter for Mac
-- Wunderlist?
-- Pocket
-- Kobito
+- PyCharm
+ - https://www.jetbrains.com/pycharm/download/
 
+- Skype
+ - http://www.skype.com/en/download-skype/skype-for-mac/downloading/

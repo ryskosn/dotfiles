@@ -24,18 +24,14 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 # F#
 export DYLD_FALLBACK_LIBRARY_PATH="${HOME}/lib:/usr/local/lib:/opt/local/lib:/lib:/usr/lib:${DYLD_FALLBACK_LIBRARY_PATH}$"
 
+
 # language environment
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
-# ssh
+
+### ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # https://gist.github.com/mollifier/4979906
@@ -58,7 +54,6 @@ colors
 if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
-
 
 # emacs 風キーバインドにする
 bindkey -e
@@ -104,21 +99,22 @@ setopt auto_menu
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
-## Alias
+### Alias
 # coreutils をインストールする
 alias ls='gls -a --color=auto'
 alias ll='gls -l --color=auto'
 alias lls='ls -a'
 
+# findutils をインストールする
 alias find='gfind'
 alias xargs='gxargs'
-alias grep='grep --color=auto'
 
 # add option
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
+alias grep='grep --color=auto'
 
 # Git
 alias gst='git status'
@@ -134,19 +130,27 @@ function op() {
 alias ql='qlmanage -p "$@" >& /dev/null'
 
 
-## PostgreSQL
+### PostgreSQL
 # http://succzero.hatenablog.com/entry/2014/09/21/133315
 export PGDATA=/opt/local/var/db/postgresql94/defaultdb
 
 # OPAM configuration
 . /Users/ryosuke/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
-# peco
+
+### peco
+# http://qiita.com/shepabashi/items/f2bc2be37a31df49bca5
+
 function peco-history-selection() {
     BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle reset-prompt
 }
-
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
+
+# http://r7kamura.github.io/2014/06/21/ghq.html
+function p() {
+    peco | while read LINE; do $@ $LINE; done
+}
+alias e='ghq list -p | p cd'

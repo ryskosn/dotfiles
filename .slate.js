@@ -33,7 +33,6 @@ slate.bind(util.key('u'), slate.operation('chain', {
   })
 }));
 
-
 // alt + i 上半分 or 右半分
 slate.bind(util.key('i'), slate.operation('chain', {
   operations: _.map(['top', 'bottom'], function(d) {
@@ -144,3 +143,5 @@ S.bind('t:alt', launch_and_focus('iTerm'));
 S.bind('c:alt', launch_and_focus('Google Chrome'));
 // S.bind('f:alt', launch_and_focus('Finder'));
 S.bind('d:alt', launch_and_focus('Dictionary'));
+S.bind('s:alt', launch_and_focus('Slack'));
+// S.bind('v:alt', launch_and_focus('VMware Fusion'));

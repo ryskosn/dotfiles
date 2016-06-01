@@ -80,18 +80,18 @@
 
 ;; 現在行をハイライト
 ;;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
-(defface hlline-face
-  '((((class color)
-      (background dark))
-     (:background "dark slate gray"))
-    (((class color)
-      (background light))
-     (:background  "#98FB98"))
-    (t
-     ()))
-  "*Face used by hl-line.")
-(setq hl-line-face 'hlline-face)
-(global-hl-line-mode)
+;; (defface hlline-face
+;;   '((((class color)
+;;       (background dark))
+;;      (:background "dark slate gray"))
+;;     (((class color)
+;;       (background light))
+;;      (:background  "#98FB98"))
+;;     (t
+;;      ()))
+;;   "*Face used by hl-line.")
+;; (setq hl-line-face 'hlline-face)
+;; (global-hl-line-mode)
 
 ;; paren-mode  対応する括弧を強調表示する
 (show-paren-mode t)   ; 有効化
@@ -148,7 +148,6 @@
 
 ;; 保存時に行末のスペースを削除
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 
 ;; タブをスペースで扱う
 (setq-default indent-tabs-mode nil)
@@ -340,9 +339,9 @@
 ;; 使い方
 ;; http://emacs-jp.github.io/packages/package-management/package-el.html
 
-;; MELPAを追加
+;; MELPA を追加
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;; Marmaladeを追加
+;; Marmalade を追加
 (add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/"))
 ;; 初期化
 (package-initialize)
@@ -445,14 +444,14 @@
 	;; ("t" "Todo" entry (file+headline "~/Dropbox/Org/plan.org" "Inbox")
 	;;  "* TODO %?\n %U" :prepend t :empty-lines 1)
 
-	("n" "Note" entry (file "~/Dropbox/Org/note.org")
+	("S" "SS" entry (file+headline "~/Dropbox/Org/ss.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
 	("d" "Diary" entry (file+headline "~/Dropbox/Org/diary.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	;; ("N" "Note clip" entry (file "~/Dropbox/Org/note.org")
-	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
+	("n" "Note" entry (file "~/Dropbox/Org/note.org")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
 	("f" "Forex" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
@@ -465,9 +464,6 @@
 
    	("s" "Trade log Short" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
 	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log_short.txt]" :prepend t :empty-lines 1)
-
-	;; ("]F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
-	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
 
 	))
 
@@ -754,8 +750,8 @@
 
 ;; jade
 ;; (require 'sws-mode)
-(require 'jade-mode)
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+;; (require 'jade-mode)
+;; (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 
 ;; quickrun
@@ -763,10 +759,10 @@
 ;; http://yunojy.github.io/blog/2013/03/17/emacs-de-quickrun-or-quickrun-region/
 (require 'quickrun)
 (defun quickrun-sc (start end)
-(interactive "r")
-(if mark-active
-    (quickrun :start start :end end)
-  (quickrun)))
+  (interactive "r")
+  (if mark-active
+      (quickrun :start start :end end)
+    (quickrun)))
 ;; (global-set-key (kbd "<f5>") 'quickrun-sc)
 (global-set-key (kbd "M-q") 'quickrun-sc)
 
@@ -867,7 +863,22 @@
 (setq merlin-error-after-save nil)
 (setq tuareg-use-smie nil)
 
+;; Add opam emacs directory to the load-path
+(setq opam-share (substring (shell-command-to-string "opam config var
+   share 2> /dev/null") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;; Load merlin-mode
+(require 'merlin)
+;; Start merlin on ocaml files
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(add-hook 'caml-mode-hook 'merlin-mode t)
+;; Enable auto-complete
+(setq merlin-use-auto-complete-mode 'easy)
+;; Use opam switch to lookup ocamlmerlin binary
+(setq merlin-command 'opam)
 
+
+<<<<<<< HEAD
 ;; ------------------------------------------------------------------------
 ;; @ mql-mode
 (require 'mql-mode)
@@ -885,6 +896,24 @@
             (c-set-style "java")
             (setq c-basic-offset 4)))
 
+;; ------------------------------------------------------------------------
+;; @ ediff
+
+;; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; diffのバッファを上下ではなく左右に並べる
+(setq ediff-split-window-function 'split-window-horizontally)
+
+
+;; ------------------------------------------------------------------------
+;; @ C
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            (c-set-style "k&r")
+            (setq c-basic-offset 4)))
+
+
 ;; google-c-style.el
 ;; (require 'google-c-style)
 ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
@@ -897,10 +926,10 @@
 
 ;; ------------------------------------------------------------------------
 ;; @ Emacs Lisp
+
 (require 'lispxmp)
 (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
 ;; (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
-
 
 
 ;; ------------------------------------------------------------------------
@@ -928,6 +957,8 @@
 
 
 ;; ------------------------------------------------------------------------
+
+
 ;; @ PATH
 
 (add-to-list 'exec-path (expand-file-name "/opt/local/bin"))
@@ -950,6 +981,10 @@
      (set-face-attribute 'eldoc-highlight-function-argument nil
                          :underline t :foreground "green"
                          :weight 'bold)
+
+     ;; gofmtをgoimportsに上書き
+     (setq gofmt-command "goimports")
+
      ;; gofmt
      (add-hook 'before-save-hook 'gofmt-before-save)
      ;; key bindings
@@ -957,5 +992,41 @@
      (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
      )
   )
+
+
+;; ------------------------------------------------------------------------
+;; @ google-translate
+
+;; http://blog.shibayu36.org/entry/2016/05/29/123342
+
+(require 'google-translate)
+(require 'google-translate-default-ui)
+
+(defvar google-translate-english-chars "[:ascii:]"
+  "これらの文字が含まれているときは英語とみなす")
+(defun google-translate-enja-or-jaen (&optional string)
+  "regionか現在位置の単語を翻訳する。C-u付きでquery指定も可能"
+  (interactive)
+  (setq string
+        (cond ((stringp string) string)
+              (current-prefix-arg
+               (read-string "Google Translate: "))
+              ((use-region-p)
+               (buffer-substring (region-beginning) (region-end)))
+              (t
+               (thing-at-point 'word))))
+  (let* ((asciip (string-match
+                  (format "\\`[%s]+\\'" google-translate-english-chars)
+                  string)))
+    (run-at-time 0.1 nil 'deactivate-mark)
+    (google-translate-translate
+     (if asciip "en" "ja")
+     (if asciip "ja" "en")
+     string)))
+
+(push '("\*Google Translate\*" :height 0.5 :stick t) popwin:special-display-config)
+
+(global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen)
+
 
 ;;; init.el ends here
