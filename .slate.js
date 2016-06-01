@@ -142,5 +142,5 @@ var launch_and_focus = function (target) {
 
 S.bind('t:alt', launch_and_focus('iTerm'));
 S.bind('c:alt', launch_and_focus('Google Chrome'));
-S.bind('f:alt', launch_and_focus('Finder'));
+// S.bind('f:alt', launch_and_focus('Finder'));
 S.bind('d:alt', launch_and_focus('Dictionary'));

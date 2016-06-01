@@ -167,6 +167,11 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
+;; コントロール用のバッファを同一フレーム内に表示
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; diffのバッファを上下ではなく左右に並べる
+(setq ediff-split-window-function 'split-window-horizontally)
+
 
 ;; -------------------------------------------------------------------------
 ;; @ mode-line
@@ -240,6 +245,26 @@
 ;; powerline
 ;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
 
+;; (require 'powerline)
+
+;; (set-face-attribute 'mode-line nil
+;;                     :foreground "#000"
+;;                     ;; :foreground "#fff"
+;;                     :background "#FF0066"
+;;                     :box nil)
+
+;; (set-face-attribute 'powerline-active1 nil
+;;                     :foreground "#000"
+;;                     ;; :foreground "#fff"
+;;                     :background "#FF6699"
+;;                     :inherit 'mode-line)
+
+;; (set-face-attribute 'powerline-active2 nil
+;;                     :foreground "#000"
+;;                     :background "#ffaeb9"
+;;                     :inherit 'mode-line)
+
+;; (powerline-default-theme)
 
 
 
@@ -263,6 +288,8 @@
 ;; (add-hook 'minibuffer-setup-hook 'mac-change-language-to-us)
 ;; ;; backslash を先
 ;; (mac-translate-from-yen-to-backslash)
+
+;; IME ON/OFF時のカーソルカラー
 
 ;; http://qiita.com/catatsuy/items/886f1e0632c0b2760fb4
 ;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" 'title "あ")
@@ -393,6 +420,7 @@
 ;; org-remember の設定
 (require 'org)
 
+;; コードブロックを当該言語のモードでハイライトする
 (setq org-src-fontify-natively t)
 
 ;; http://d.hatena.ne.jp/tamura70/20100203/org
@@ -420,6 +448,9 @@
 	("n" "Note" entry (file "~/Dropbox/Org/note.org")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
+	("d" "Diary" entry (file+headline "~/Dropbox/Org/diary.org" "Inbox")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
+
 	;; ("N" "Note clip" entry (file "~/Dropbox/Org/note.org")
 	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
 
@@ -430,20 +461,16 @@
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
    	("l" "Trade log Long" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
-	 "* %U %? Long%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
+	 "* %U %? Long%[~/Dropbox/Org/templates/trade_log_long.txt]" :prepend t :empty-lines 1)
 
    	("s" "Trade log Short" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
-	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
-
+	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log_short.txt]" :prepend t :empty-lines 1)
 
 	;; ("]F" "Forex clip" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	;;  "* %^U %?\n \n%c\n" :prepend t :empty-lines 1)
 
 	))
 
-(add-to-list 'org-capture-templates
-             '("d" "Diary" entry (file "diary.org")
-               "* %U %?\n%i\n"))
 
 ;; http://d.hatena.ne.jp/tamura70/20100208/org
 ;; アジェンダ表示の対象ファイル
@@ -464,6 +491,29 @@
         (t
          (setq truncate-lines nil))))
 
+;; http://rubikitch.com/2014/10/10/org-sparse-tree-indirect-buffer/
+(defun org-sparse-tree-indirect-buffer (arg)
+  (interactive "P")
+  (let ((ibuf (switch-to-buffer (org-get-indirect-buffer))))
+    (condition-case _
+        (org-sparse-tree arg)
+      (quit (kill-buffer ibuf)))))
+(define-key org-mode-map (kbd "C-c /") 'org-sparse-tree-indirect-buffer)
+
+;; org-refile
+(setq org-refile-targets
+      (quote (
+              ;; ("note.org" :level . 2)
+              ("forex.org" :level . 1)
+              ("trading-method.org" :level . 2)
+              ("knowledge.org" :level . 1)
+              )))
+
+;; TODO 項目の追加 M-S-RET がなぜか効かないので
+(global-set-key (kbd "C-c t") 'org-insert-todo-heading)
+
+;; コードを評価するとき尋ねない
+(setq org-confirm-babel-evaluate nil)
 
 ;; -------------------------------------------------------------------------
 ;; @ auto-complete
@@ -518,8 +568,8 @@
 (setq auto-insert-alist
       (nconc '(
                ("\\.rst$" . ["template.rst" my-template])
-	       ("\\.py$" . ["template.py" my-template])
-	       ("\\.html" . ["template.html" my-template])
+               ("\\.py$" . ["template.py" my-template])
+               ("\\.html" . ["template.html" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
@@ -717,7 +767,8 @@
 (if mark-active
     (quickrun :start start :end end)
   (quickrun)))
-(global-set-key (kbd "<f5>") 'quickrun-sc)
+;; (global-set-key (kbd "<f5>") 'quickrun-sc)
+(global-set-key (kbd "M-q") 'quickrun-sc)
 
 ;; fly-check
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -748,7 +799,10 @@
 (require 'text-adjust)
 (defun text-adjust-space-before-save-if-needed ()
   (when (memq major-mode
-              '(org-mode text-mode Tuareg-mode ReST-mode
+              '(org-mode
+                text-mode
+                Tuareg-mode
+                ReST-mode
                 mew-draft-mode
                 myhatena-mode))
     (text-adjust-space-buffer)))
@@ -771,7 +825,7 @@
 ;; magit
 ;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
 ;; (require 'magit)
-
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 
 ;; ------------------------------------------------------------------------
@@ -779,15 +833,22 @@
 
 ;; from http://support.markedapp.com/kb/how-to-tips-and-tricks/marked-bonus-pack-scripts-commands-and-bundles
 
-(defun markdown-preview-file ()
-  "run Marked on the current file and revert the buffer"
-  (interactive)
-  (shell-command
-   (format "open -a /Applications/Marked.app %s"
-       (shell-quote-argument (buffer-file-name))))
-)
-(global-set-key (kbd "C-c m") 'markdown-preview-file)
+;; (defun markdown-preview-file ()
+;;   "run Marked on the current file and revert the buffer"
+;;   (interactive)
+;;   (shell-command
+;;    (format "open -a /Applications/Marked.app %s"
+;;        (shell-quote-argument (buffer-file-name))))
+;; )
+;; (global-set-key (kbd "C-c m") 'markdown-preview-file)
 
+;; ------------------------------------------------------------------------
+;; @ Server
+
+; server start for emacs-client
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;; ------------------------------------------------------------------------
 ;; @ Tuareg, OCaml
@@ -806,5 +867,95 @@
 (setq merlin-error-after-save nil)
 (setq tuareg-use-smie nil)
 
+
+;; ------------------------------------------------------------------------
+;; @ mql-mode
+(require 'mql-mode)
+(require 'electric-operator)
+(add-hook 'mql-mode-hook #'electric-operator-mode)
+(add-hook 'c-mode-hook #'electric-operator-mode)
+
+;; (setq-default c-basic-offset 2      ;; 基本インデント量
+;;               tab-width 2           ;; タブ幅
+;;               indent-tabs-mode nil) ;; インデントをタブでするかスペースでするか
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            ;; (c-set-style "k&r")
+            (c-set-style "java")
+            (setq c-basic-offset 4)))
+
+;; google-c-style.el
+;; (require 'google-c-style)
+;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+;; (add-hook 'mql-mode-hook 'google-set-c-style)
+;; (add-hook 'mql-mode-hook 'google-make-newline-indent)
+
+;; (add-hook 'c++-mode-common-hook 'google-set-c-style)
+;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+
+;; ------------------------------------------------------------------------
+;; @ Emacs Lisp
+(require 'lispxmp)
+(define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
+;; (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
+
+
+
+;; ------------------------------------------------------------------------
+;;; 為替レートの差分を pips で表示する
+
+;; (long 123.342 124.642)                   ; => 130.0
+;; (long 123.343 123.393)                   ; => 5.0
+;; (short 1.11023 1.11011)                 ; => 1.2
+;; (short 1.11023 1.11411)                 ; => -38.8
+
+(defun fivedigits (x)
+  (if (< (* x 1000) 10000)
+      t
+    nil))
+
+(defun long (x y)
+  (if (fivedigits x)
+      (/ (- (* 100000 y) (* 100000 x)) 10)
+    (/ (- (* 1000 y) (* 1000 x)) 10)))
+
+(defun short (x y)
+  (if (fivedigits x)
+      (/ (- (* 100000 x) (* 100000 y)) 10)
+    (/ (- (* 1000 x) (* 1000 y)) 10)))
+
+
+;; ------------------------------------------------------------------------
+;; @ PATH
+
+(add-to-list 'exec-path (expand-file-name "/opt/local/bin"))
+
+
+;; ------------------------------------------------------------------------
+;; @ Go
+
+;; http://qiita.com/koki_cheese/items/2e2ead918a1f1ac5bf6e
+;; http://unknownplace.org/archives/golang-editing-with-emacs.html
+
+(add-to-list 'exec-path (expand-file-name (concat (getenv "GOROOT") "/bin")))
+(add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
+(eval-after-load "go-mode"
+  '(progn
+     (require 'go-autocomplete)
+     (require 'auto-complete-config)
+     ;; eldoc
+     (add-hook 'go-mode-hook 'go-eldoc-setup)
+     (set-face-attribute 'eldoc-highlight-function-argument nil
+                         :underline t :foreground "green"
+                         :weight 'bold)
+     ;; gofmt
+     (add-hook 'before-save-hook 'gofmt-before-save)
+     ;; key bindings
+     (define-key go-mode-map (kbd "M-.") 'godef-jump)
+     (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
+     )
+  )
 
 ;;; init.el ends here
