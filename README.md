@@ -214,117 +214,13 @@ $ pip install epc
 - http://cortyuming.hateblo.jp/entry/20130415/p1
 
 
-## Ruby の設定
+## GUI Apps
 
-### MacPorts を使う場合
-
-```zsh
-# 入れられるバージョンを確認する
-$ port search ruby* | grep ^ruby
-# ruby 2.2 をインストールする
-$ sudo port install ruby22
-```
-
-下記コマンドでメインで使用する ruby を選択する。
-
-```zsh
-% sudo port select --set ruby ruby22
-```
-
-シェルを再起動する。
-
-```zsh
-% source ~/.zshrc
-```
-
-これでもいいかも。
-
-### rbenv を使う場合
-Python でいうところの virtualenv のようなものは rbenv を使うのがよさそう。
-このあたりは Python と全く同じことができるわけではないので頭を切り替える。
-
-- http://momijiame.tumblr.com/post/66188370081/mac-rbenv-ruby
-- http://d.hatena.ne.jp/ryskosn/20140913/1410621955
-
-```zsh
-$ sudo port install rbenv
-$ sudo port install ruby-build
-```
-
-`.zshrc` に PATH を追加する。
-
-```.zshrc
-export PATH="$HOME/.rbenv:$PATH"
-eval "$(rbenv init - zsh)"
-```
-
-インストールできる ruby 処理系の一覧を表示する。
-
-```zsh
-$ rbenv install -l
-```
-
-openssl, readline, liviconv のインストール先を指定した形でインストールする。
-
-```zsh
-$ RUBY_CONFIGURE_OPTS="--with-openssl-dir=/opt/local --with-readline-dir=/opt/local --with-iconv-dir=/opt/local" rbenv install 2.1.1
-```
-
-インストール後に rehash する。
-
-```zsh
-$ rbenv rehash
-```
-
-インストール済のバージョンを表示する。
-
-```zsh
-$ rbenv versions
-```
-
-
-
-## q のインストール
-
-- https://github.com/harelba/q
-
-single file をダウンロードして `~/bin` に置く。
-
-```zsh
-$ chmod +x q
-```
-
-shebang を書き換えてインタプリタを変更する
-python 2.7 にする
-
-```.zshrc
-#!/Users/ryosuke/py27/bin/python
-```
-
-`.zshrc` に PATH を追加する
-
-```.zshrc
-export PATH="$HOME/bin:$PATH"
-```
-
-```zsh
-$ source .zshrc
-```
-
-q を実行してみる
-
-```zsh
-$ q -v
-```
-
-
-# GUI Apps
-
-## Finder
+### Finder
 
 サイドバーからタグを削除、All my files を非表示、ホームディレクトリを表示など
 
-## Karabina
+### Karabina
 
 - https://pqrs.org/osx/karabiner/index.html.ja
 
@@ -335,7 +231,7 @@ $ q -v
 $ sh ~/dotfiles/karabiner-import.sh
 ```
 
-## Slate
+### Slate
 
 - https://github.com/jigish/slate
 
@@ -351,22 +247,22 @@ or direct download
 初回起動時にアクセシビリティ設定を許可する必要あり。
 起動したらメニューバーのアイコンをクリックして `Launch Slate On Login` を選択する。
 
-## Quicksilver
+
+### Quicksilver
 
 - http://qsapp.com/download.php
 
-### install with plugin
+#### install with plugin
 
-- chrome
+- Chrome
 - iTerm
 - shelf
 
 
-## Command hotkey
+#### Command hotkey
 
 `Cmd + spc`
 When activated switch keyboard to U.S.
-
 
 Show icon in dock
 
@@ -383,37 +279,20 @@ Show icon in dock
 の二択で OK
 
 #### 一般
-スペースの入力 -> 半角にする
-キー設定の選択 -> カスタム、インポートする
-`GoogleIME_keymap.txt` をインポートする
+
+- スペースの入力 -> 半角にする
+- キー設定の選択 -> カスタム、インポートする
+- `GoogleIME_keymap.txt` をインポートする
 
 
 #### Advanced
 
-アルファベット -> 半角
-数字 -> 半角
-
-### サジェスト
-
-サジェスト件数 -> 5
-
+- アルファベット -> 半角
+- 数字 -> 半角
+- サジェスト件数 -> 5
 
 
 ## Others
-
-- Chrome
- - https://www.google.co.jp/chrome/browser/desktop/index.html
- - Google アカウントでログイン、同期パスワードを入力する
-
-- Firefox
- - https://download.mozilla.org/?product=firefox-aurora-latest-l10n&os=osx&lang=ja-JP-mac
- - Firefox Developper Edition は青ベースのアイコンが格好いい。
-
-- CotEditor
- - http://coteditor.com
-
-- PyCharm
- - https://www.jetbrains.com/pycharm/download/
 
 - Dropbox
  - https://www.dropbox.com/downloading?src=index
@@ -421,8 +300,18 @@ Show icon in dock
 - KeePassX
  - http://www.keepassx.org/downloads/
 
-- Skype
- - http://www.skype.com/en/download-skype/skype-for-mac/downloading/
-
 - Shades
  - http://www.charcoaldesign.co.uk/shades
+
+- Chrome
+ - https://www.google.co.jp/chrome/browser/desktop/index.html
+ - Google アカウントでログイン、同期パスワードを入力する
+
+- CotEditor
+ - http://coteditor.com
+
+- PyCharm
+ - https://www.jetbrains.com/pycharm/download/
+
+- Skype
+ - http://www.skype.com/en/download-skype/skype-for-mac/downloading/
