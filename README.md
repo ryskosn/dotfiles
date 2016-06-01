@@ -1,7 +1,4 @@
-Mac OSX で使っている dotfiles とセットアップ用スクリプト、手順書など。
-シェルスクリプトをもう少し整えたいところ。
-
-## setup
+## Set up
 Xcode command line tools をインストールする。
 
 ```
@@ -24,45 +21,6 @@ MacPorts をインストールする
 ```
 $ sudo port selfupdate
 ```
-
-## System settings
-
-### キーボード
-
-修飾キー `CapsLock` キーを `Control` にする
-
-### ショートカット -> キーボード
-
-次のウィンドウを操作対象にする
-`Command + F1` -> `Option + Tab` に変更する
-
-### ショートカット -> 入力ソース
-
-前の入力ソースを選択 -> チェックを外す
-入力メニューの次のソースを選択
-`Opt + Cmd + spc` -> `Ctrl + ;`
-
-### ショートカット -> Spotlight
-
-Spotlight 検索フィールドを表示
-`Ctrl + spc` -> `Ctrl + ‘`
-
-
-### トラックパッド
-
-ポイントとクリック
-タップでクリックを有効にする
-
-### スクロールとズーム
-スクロールの方向ナチュラルのチェックを外す
-
-## 共有
-コンピュータ名を
-
-## セキュリティとプライバシー
-一般 すべてのアプリケーションを許可
-
-# MacPorts
 
 ```
 $ sudo port install emacs
@@ -88,6 +46,7 @@ $ sudo port install stunnel
 $ sudo port install coreutils
 $ sudo port install findutils
 ```
+
 
 ## iTerm2
 
@@ -179,7 +138,7 @@ $ curl -O http://rubikitch.com/f/mell.el
 - http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e
 
 
-## Python の設定
+## Python
 
 普段使い用の Python 3.4 環境を作る。
 `pip install -r ファイル` でパッケージをまとめてインストールする。
@@ -213,8 +172,39 @@ $ pip install epc
 - http://d.hatena.ne.jp/n-channel/20131220/1387551080
 - http://cortyuming.hateblo.jp/entry/20130415/p1
 
+## Go
 
-## GUI Apps
+later...
+
+
+## System settings
+
+キーボード
+修飾キー `CapsLock` キーを `Control` にする
+
+ショートカット -> キーボード
+次のウィンドウを操作対象にする
+`Command + F1` -> `Option + Tab` に変更する
+
+ショートカット -> 入力ソース
+
+前の入力ソースを選択 -> チェックを外す
+入力メニューの次のソースを選択
+`Opt + Cmd + spc` -> `Ctrl + ;`
+
+ショートカット -> Spotlight
+
+Spotlight 検索フィールドを表示
+`Ctrl + spc` -> `Ctrl + ‘`
+
+
+- トラックパッド -> ポイントとクリック -> タップでクリックを有効にする
+- スクロールとズーム -> スクロールの方向ナチュラルのチェックを外す
+- 共有 -> コンピュータ名を修正する
+- セキュリティとプライバシー -> 一般 すべてのアプリケーションを許可
+
+
+## Other Apprications
 
 ### Finder
 
