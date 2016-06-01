@@ -447,7 +447,7 @@
 	("S" "SS" entry (file+headline "~/Dropbox/Org/ss.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
-	("d" "Diary" entry (file "~/Dropbox/Org/diary.org")
+	("d" "Diary" entry (file+headline "~/Dropbox/Org/diary.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
 	("n" "Note" entry (file "~/Dropbox/Org/note.org")
@@ -753,11 +753,12 @@
 ;; http://yunojy.github.io/blog/2013/03/17/emacs-de-quickrun-or-quickrun-region/
 (require 'quickrun)
 (defun quickrun-sc (start end)
-(interactive "r")
-(if mark-active
-    (quickrun :start start :end end)
-  (quickrun)))
-(global-set-key (kbd "<f5>") 'quickrun-sc)
+  (interactive "r")
+  (if mark-active
+      (quickrun :start start :end end)
+    (quickrun)))
+(global-set-key (kbd "M-q") 'quickrun-sc)
+;; (global-set-key (kbd "<f5>") 'quickrun-sc)
 ;; (global-set-key (kbd "C-c r") 'quickrun-sc)
 
 ;; fly-check
@@ -941,5 +942,40 @@
      (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
      )
   )
+
+;; ------------------------------------------------------------------------
+;; @ google-translate
+
+;; http://blog.shibayu36.org/entry/2016/05/29/123342
+
+(require 'google-translate)
+(require 'google-translate-default-ui)
+
+(defvar google-translate-english-chars "[:ascii:]"
+  "これらの文字が含まれているときは英語とみなす")
+(defun google-translate-enja-or-jaen (&optional string)
+  "regionか現在位置の単語を翻訳する。C-u付きでquery指定も可能"
+  (interactive)
+  (setq string
+        (cond ((stringp string) string)
+              (current-prefix-arg
+               (read-string "Google Translate: "))
+              ((use-region-p)
+               (buffer-substring (region-beginning) (region-end)))
+              (t
+               (thing-at-point 'word))))
+  (let* ((asciip (string-match
+                  (format "\\`[%s]+\\'" google-translate-english-chars)
+                  string)))
+    (run-at-time 0.1 nil 'deactivate-mark)
+    (google-translate-translate
+     (if asciip "en" "ja")
+     (if asciip "ja" "en")
+     string)))
+
+(push '("\*Google Translate\*" :height 0.5 :stick t) popwin:special-display-config)
+
+(global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen)
+
 
 ;;; init.el ends here

@@ -1,17 +1,12 @@
-# My dotfiles and setup script.
-
 Mac OSX で使っている dotfiles とセットアップ用スクリプト、手順書など。
 シェルスクリプトをもう少し整えたいところ。
 
-
-## Xcode Commandline Tools
+## setup
 Xcode command line tools をインストールする。
 
 ```
 $ xcode-select —install
 ```
-
-## dotfiles
 
 dotfiles リポジトリを clone してくる。
 
@@ -20,19 +15,19 @@ $ git clone https://github.com/ryskosn/dotfiles.git
 $ bash osx_bootstrap.sh
 ```
 
-## MacPorts
+MacPorts をインストールする
 
 - https://www.macports.org/install.php
 
 ダウンロードしたパッケージスクリプトを展開する。
 
 ```
-$ sudo port selfupdate 
+$ sudo port selfupdate
 ```
 
-# System settings
+## System settings
 
-## キーボード
+### キーボード
 
 修飾キー `CapsLock` キーを `Control` にする
 
@@ -53,26 +48,16 @@ Spotlight 検索フィールドを表示
 `Ctrl + spc` -> `Ctrl + ‘`
 
 
-## デスクトップとスクリーンセーバー
+### トラックパッド
 
-デスクトップを無地の色にする
-半透明めにゅーばー
-
-## スクリーンセーバー
-
-Word of the day
-option Oxford dictionary
-
-## トラックパッド
-### ポイントとクリック
-
+ポイントとクリック
 タップでクリックを有効にする
 
 ### スクロールとズーム
 スクロールの方向ナチュラルのチェックを外す
 
 ## 共有
-コンピュータ名
+コンピュータ名を
 
 ## セキュリティとプライバシー
 一般 すべてのアプリケーションを許可
@@ -152,7 +137,7 @@ $ cask install
 `cask install` の際に下記メッセージが出た。
 
 ```
-Select coding system (default raw-text): 
+Select coding system (default raw-text):
 ```
 `utf-8` を指定しておいた。
 
@@ -386,17 +371,16 @@ When activated switch keyboard to U.S.
 Show icon in dock
 
 
-## Google IME
+### Google IME
 
 - http://www.google.co.jp/ime/
 
-### システム環境設定
-キーボード
+システム環境設定 -> キーボード
 
 - ひらがな
 - U.S.
 
-の二択でOK
+の二択で OK
 
 #### 一般
 スペースの入力 -> 半角にする
@@ -404,8 +388,7 @@ Show icon in dock
 `GoogleIME_keymap.txt` をインポートする
 
 
-
-### Advanced
+#### Advanced
 
 アルファベット -> 半角
 数字 -> 半角
@@ -414,9 +397,6 @@ Show icon in dock
 
 サジェスト件数 -> 5
 
-### Misc
-
-ログイン時に起動する
 
 
 ## Others
@@ -432,11 +412,6 @@ Show icon in dock
 - CotEditor
  - http://coteditor.com
 
-- Atom
- - https://atom.io/
-
-- XamarineStudio
-
 - PyCharm
  - https://www.jetbrains.com/pycharm/download/
 
@@ -451,12 +426,3 @@ Show icon in dock
 
 - Shades
  - http://www.charcoaldesign.co.uk/shades
-
-
-# App Store Apps
-
-- YoruFukurou or Twitter for Mac
-- Wunderlist?
-- Pocket
-- Kobito
-
