@@ -132,3 +132,9 @@ function peco-history-selection() {
 }
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
+
+# http://r7kamura.github.io/2014/06/21/ghq.html
+function p() {
+    peco | while read LINE; do $@ $LINE; done
+}
+alias e='ghq list -p | p cd'
