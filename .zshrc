@@ -138,3 +138,13 @@ function p() {
     peco | while read LINE; do $@ $LINE; done
 }
 alias e='ghq list -p | p cd'
+
+alias peco-pushd="pushd +\$(dirs -p -v -l | sort -k 2 -k 1n | uniq -f 1 | sort -n | peco | head -n 1 | awk '{print \$1}')"
+
+# http://futurismo.biz/archives/2514
+function peco-find-file () {
+    ls | peco | xargs emacsclient -nw
+    zle clear-screen
+}
+zle -N peco-find-file
+bindkey '^x^f' peco-find-file # C-x C-f
