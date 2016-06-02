@@ -11,18 +11,18 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # rbenv
-# export PATH="$HOME/.rbenv:$PATH"
-# eval "$(rbenv init - zsh)"
-
 [[ -d ~/.rbenv  ]] && \
   export PATH=${HOME}/.rbenv/bin:${PATH} && \
   eval "$(rbenv init -)"
 
-### Added by the Heroku Toolbelt
-export PATH=$PATH:/usr/local/heroku/bin
+### added by the Heroku Toolbelt
+export PATH=/usr/local/heroku/bin:$PATH
 
 # nodebrew
-export PATH=$PATH:$HOME/.nodebrew/current/bin
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# F#
+export DYLD_FALLBACK_LIBRARY_PATH="${HOME}/lib:/usr/local/lib:/opt/local/lib:/lib:/usr/lib:${DYLD_FALLBACK_LIBRARY_PATH}$"
 
 
 # language environment
@@ -30,7 +30,11 @@ export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 
 
-### https://gist.github.com/mollifier/4979906
+
+### ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# https://gist.github.com/mollifier/4979906
 
 # 補完機能を有効にする
 autoload -Uz compinit
@@ -115,6 +119,16 @@ alias grep='grep --color=auto'
 # Git
 alias gst='git status'
 
+# open, quicklook
+function op() {
+    if [ -z "$1" ]; then
+        open .
+    else
+        open "$@"
+    fi
+}
+alias ql='qlmanage -p "$@" >& /dev/null'
+
 
 ### PostgreSQL
 # http://succzero.hatenablog.com/entry/2014/09/21/133315
@@ -123,8 +137,10 @@ export PGDATA=/opt/local/var/db/postgresql94/defaultdb
 # OPAM configuration
 . /Users/ryosuke/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
+
 ### peco
 # http://qiita.com/shepabashi/items/f2bc2be37a31df49bca5
+
 function peco-history-selection() {
     BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER

@@ -30,6 +30,8 @@
 (depends-on "yasnippet")
 (depends-on "flex-autopair")
 (depends-on "quickrun")
+(depends-on "lispxmp")
+(depends-on "paredit")
 (depends-on "electric-operator")
 
 ;; File

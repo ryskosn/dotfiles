@@ -1,6 +1,6 @@
 // http://www.infiniteloop.co.jp/blog/2013/08/osx_slate/
 var util = {
-  // Alt + hoge
+  // alt + hoge
   key: function(k, mod) {
     return k + ':alt' + (mod ? ',' + mod : '');
   },
@@ -23,7 +23,7 @@ var util = {
 };
 
 
-// Alt + U 左半分 or 右半分
+// alt + u 左半分 or 右半分
 slate.bind(util.key('u'), slate.operation('chain', {
   operations: _.map(['left', 'right'], function(d) {
     return slate.operation('push', {
@@ -33,8 +33,7 @@ slate.bind(util.key('u'), slate.operation('chain', {
   })
 }));
 
-
-// Alt + I 上半分 or 右半分
+// alt + i 上半分 or 右半分
 slate.bind(util.key('i'), slate.operation('chain', {
   operations: _.map(['top', 'bottom'], function(d) {
     return slate.operation('push', {
@@ -45,7 +44,8 @@ slate.bind(util.key('i'), slate.operation('chain', {
 }));
 
 
-// Alt + O 4隅に飛ばす
+// alt + o
+// 4 隅に飛ばす
 var corners = slate.bind(util.key('o'), slate.operation('chain', {
   operations: _.map(['top-right', 'bottom-right', 'bottom-left', 'top-left'], function(d) {
     return slate.operation('corner', {
@@ -57,7 +57,8 @@ var corners = slate.bind(util.key('o'), slate.operation('chain', {
 }));
 
 
-// Alt + P 次のスクリーンへ飛ばす
+// alt + p
+// 次のスクリーンへ飛ばす
 slate.bind(util.key('p'), function(win) {
   if (!win) return;
   var next = util.nextScreen(win.screen());
@@ -65,7 +66,8 @@ slate.bind(util.key('p'), function(win) {
 });
 
 
-// Alt + M 最大化
+// alt + m
+// 最大化
 slate.bind(util.key('m'), function(win) {
   if (!win) return;
   var bounds = win.screen().visibleRect();
@@ -101,7 +103,8 @@ var bottomLeft = slate.operation("corner", {
 });
 
 
-// [tab]+alt+shiftでアプリのウィンドウをタイル状に並べる
+// tab + alt + shift
+// アプリのウィンドウをタイル状に並べる
 var tileKey = "tab:alt;shift";
 
 slate.bind(tileKey, function(win){
@@ -116,6 +119,7 @@ slate.bind(tileKey, function(win){
   slate.operation("layout", {"name" : tiledLayout }).run();
   slate.operation("show", {"app" : appName}).run();
 });
+
 
 // http://d.hatena.ne.jp/sugyan/20130301/1362129310
 // アプリ立ち上げる関数

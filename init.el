@@ -122,6 +122,7 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 
+
 ;; 行末の空白を強調表示
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
@@ -139,7 +140,6 @@
     term-mode
     calendar-mode
     twittering-mode))
-
 (mapc
  (lambda (mode)
    (add-hook (intern (concat (symbol-name mode) "-hook"))
@@ -456,11 +456,14 @@
 	("f" "Forex" entry (file+headline "~/Dropbox/Org/forex.org" "Inbox")
 	 "* %U %?\n\n" :prepend t :empty-lines 1)
 
+	("c" "Forex Chart" entry (file+headline "~/Dropbox/Org/forex_chart.org" "Inbox")
+	 "* %U %?\n\n" :prepend t :empty-lines 1)
+
    	("l" "Trade log Long" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
-	 "* %U %? Long%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
+	 "* %U %? Long%[~/Dropbox/Org/templates/trade_log_long.txt]" :prepend t :empty-lines 1)
 
    	("s" "Trade log Short" entry (file+headline "~/Dropbox/Org/trade_log.org" "Inbox")
-	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log.txt]" :prepend t :empty-lines 1)
+	 "* %U %? Short%[~/Dropbox/Org/templates/trade_log_short.txt]" :prepend t :empty-lines 1)
 
 	))
 
@@ -504,6 +507,9 @@
 
 ;; TODO 項目の追加 M-S-RET がなぜか効かないので
 (global-set-key (kbd "C-c t") 'org-insert-todo-heading)
+
+;; コードを評価するとき尋ねない
+(setq org-confirm-babel-evaluate nil)
 
 ;; -------------------------------------------------------------------------
 ;; @ auto-complete
@@ -552,14 +558,14 @@
 (require 'autoinsert)
 
 ;; テンプレートのディレクトリ
-(setq auto-insert-directory "~/.emacs.d/template")
+(setq auto-insert-directory "~/.emacs.d/templates")
 
 ;; 各ファイルによってテンプレートを切り替える
 (setq auto-insert-alist
       (nconc '(
                ("\\.rst$" . ["template.rst" my-template])
-	       ("\\.py$" . ["template.py" my-template])
-	       ("\\.html" . ["template.html" my-template])
+               ("\\.py$" . ["template.py" my-template])
+               ("\\.html" . ["template.html" my-template])
                ) auto-insert-alist))
 (require 'cl)
 
@@ -757,9 +763,8 @@
   (if mark-active
       (quickrun :start start :end end)
     (quickrun)))
-(global-set-key (kbd "M-q") 'quickrun-sc)
 ;; (global-set-key (kbd "<f5>") 'quickrun-sc)
-;; (global-set-key (kbd "C-c r") 'quickrun-sc)
+(global-set-key (kbd "M-q") 'quickrun-sc)
 
 ;; fly-check
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -816,7 +821,7 @@
 ;; magit
 ;; http://qiita.com/takc923/items/c7a11ff30caedc4c5ba7
 ;; (require 'magit)
-
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 
 ;; ------------------------------------------------------------------------
@@ -858,7 +863,6 @@
 (setq merlin-error-after-save nil)
 (setq tuareg-use-smie nil)
 
-
 ;; Add opam emacs directory to the load-path
 (setq opam-share (substring (shell-command-to-string "opam config var
    share 2> /dev/null") 0 -1))
@@ -873,6 +877,23 @@
 ;; Use opam switch to lookup ocamlmerlin binary
 (setq merlin-command 'opam)
 
+
+;; ------------------------------------------------------------------------
+;; @ mql-mode
+(require 'mql-mode)
+(require 'electric-operator)
+(add-hook 'mql-mode-hook #'electric-operator-mode)
+(add-hook 'c-mode-hook #'electric-operator-mode)
+
+;; (setq-default c-basic-offset 2      ;; 基本インデント量
+;;               tab-width 2           ;; タブ幅
+;;               indent-tabs-mode nil) ;; インデントをタブでするかスペースでするか
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            ;; (c-set-style "k&r")
+            (c-set-style "java")
+            (setq c-basic-offset 4)))
 
 ;; ------------------------------------------------------------------------
 ;; @ ediff
@@ -891,14 +912,6 @@
             (c-set-style "k&r")
             (setq c-basic-offset 4)))
 
-;; ------------------------------------------------------------------------
-;; @ mql4
-
-(require 'mql-mode)
-
-(require 'electric-operator)
-(add-hook 'mql-mode-hook #'electric-operator-mode)
-(add-hook 'c-mode-hook #'electric-operator-mode)
 
 ;; google-c-style.el
 ;; (require 'google-c-style)
@@ -911,6 +924,40 @@
 
 
 ;; ------------------------------------------------------------------------
+;; @ Emacs Lisp
+
+(require 'lispxmp)
+(define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
+;; (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
+
+
+;; ------------------------------------------------------------------------
+;;; 為替レートの差分を pips で表示する
+
+;; (long 123.342 124.642)                   ; => 130.0
+;; (long 123.343 123.393)                   ; => 5.0
+;; (short 1.11023 1.11011)                 ; => 1.2
+;; (short 1.11023 1.11411)                 ; => -38.8
+
+(defun fivedigits (x)
+  (if (< (* x 1000) 10000)
+      t
+    nil))
+
+(defun long (x y)
+  (if (fivedigits x)
+      (/ (- (* 100000 y) (* 100000 x)) 10)
+    (/ (- (* 1000 y) (* 1000 x)) 10)))
+
+(defun short (x y)
+  (if (fivedigits x)
+      (/ (- (* 100000 x) (* 100000 y)) 10)
+    (/ (- (* 1000 x) (* 1000 y)) 10)))
+
+
+;; ------------------------------------------------------------------------
+
+
 ;; @ PATH
 
 (add-to-list 'exec-path (expand-file-name "/opt/local/bin"))
@@ -933,8 +980,10 @@
      (set-face-attribute 'eldoc-highlight-function-argument nil
                          :underline t :foreground "green"
                          :weight 'bold)
+
      ;; gofmtをgoimportsに上書き
      (setq gofmt-command "goimports")
+
      ;; gofmt
      (add-hook 'before-save-hook 'gofmt-before-save)
      ;; key bindings
@@ -942,6 +991,7 @@
      (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
      )
   )
+
 
 ;; ------------------------------------------------------------------------
 ;; @ google-translate
