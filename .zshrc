@@ -2,7 +2,8 @@
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.cask/bin:$PATH
-export PATH=$HOME/py34/bin:$PATH
+export PATH=$HOME/py35/bin:$PATH
+# export PATH=$HOME/py34/bin:$PATH
 
 # GO
 export GO15VENDOREXPERIMENT=1
