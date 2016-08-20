@@ -25,6 +25,8 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 # F#
 export DYLD_FALLBACK_LIBRARY_PATH="${HOME}/lib:/usr/local/lib:/opt/local/lib:/lib:/usr/lib:${DYLD_FALLBACK_LIBRARY_PATH}$"
 
+# Java
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 
 # language environment
 export LANG=ja_JP.UTF-8
