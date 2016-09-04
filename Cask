@@ -14,6 +14,7 @@
 (depends-on "popwin")
 (depends-on "rainbow-delimiters")
 (depends-on "powerline")
+(depends-on "nlinum")
 
 ;; auto-complete
 (depends-on "auto-complete")
