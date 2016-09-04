@@ -12,9 +12,9 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # rbenv
-[[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-  eval "$(rbenv init -)"
+# [[ -d ~/.rbenv  ]] && \
+#   export PATH=${HOME}/.rbenv/bin:${PATH} && \
+#   eval "$(rbenv init -)"
 
 ### added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
