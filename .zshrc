@@ -12,9 +12,9 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # rbenv
-[[ -d ~/.rbenv  ]] && \
-  export PATH=${HOME}/.rbenv/bin:${PATH} && \
-  eval "$(rbenv init -)"
+# [[ -d ~/.rbenv  ]] && \
+#   export PATH=${HOME}/.rbenv/bin:${PATH} && \
+#   eval "$(rbenv init -)"
 
 ### added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
@@ -27,6 +27,13 @@ export DYLD_FALLBACK_LIBRARY_PATH="${HOME}/lib:/usr/local/lib:/opt/local/lib:/li
 
 # Java
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+
+# Haskell
+# Add GHC 7.10.3 to the PATH, via https://ghcformacosx.github.io/
+export GHC_DOT_APP="/Applications/ghc-7.10.3.app"
+if [ -d "$GHC_DOT_APP" ]; then
+  export PATH="${HOME}/.local/bin:${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
+fi
 
 # language environment
 export LANG=ja_JP.UTF-8
