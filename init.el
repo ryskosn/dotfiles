@@ -975,6 +975,7 @@
   '(progn
      (require 'go-autocomplete)
      (require 'auto-complete-config)
+
      ;; eldoc
      (add-hook 'go-mode-hook 'go-eldoc-setup)
      (set-face-attribute 'eldoc-highlight-function-argument nil
@@ -986,6 +987,7 @@
 
      ;; gofmt
      (add-hook 'before-save-hook 'gofmt-before-save)
+
      ;; key bindings
      (define-key go-mode-map (kbd "M-.") 'godef-jump)
      (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
