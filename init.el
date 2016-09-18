@@ -78,6 +78,9 @@
 (global-linum-mode)
 (setq linum-format "%4d ")
 
+;; (global-nlinum-mode t)
+;; (setq nlinum-format "%5d ")
+
 ;; 現在行をハイライト
 ;;; http://shibayu36.hatenablog.com/entry/2012/12/29/001418
 ;; (defface hlline-face

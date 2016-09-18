@@ -8,3 +8,5 @@
 [ghq]
     root = ~/.ghq
     root = ~/go/src
+[core]
+	editor = emacs
