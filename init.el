@@ -517,9 +517,15 @@
 ;; -------------------------------------------------------------------------
 ;; @ auto-complete
 
-;; auto-complete.el
-(require 'auto-complete)
-(global-auto-complete-mode t)
+(require 'auto-complete-config)
+(ac-config-default)
+;; auto-completeまでの時間
+(setq ac-delay 0.1)
+;; メニューが表示されるまで
+(setq ac-auto-show-menu 0.2)
+;; C-p, C-n で候補選択
+(setq ac-use-menu-map t)
+(setq ac-use-fuzzy t)
 
 ;; http://torotoki.hatenablog.com/entry/2013/06/05/032527
 (set-face-background 'ac-completion-face "#333333")
