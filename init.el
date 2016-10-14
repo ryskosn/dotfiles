@@ -519,6 +519,7 @@
 
 (require 'auto-complete-config)
 (ac-config-default)
+(ac-set-trigger-key "TAB")
 ;; auto-completeまでの時間
 (setq ac-delay 0.1)
 ;; メニューが表示されるまで
@@ -526,6 +527,7 @@
 ;; C-p, C-n で候補選択
 (setq ac-use-menu-map t)
 (setq ac-use-fuzzy t)
+
 
 ;; http://torotoki.hatenablog.com/entry/2013/06/05/032527
 (set-face-background 'ac-completion-face "#333333")
