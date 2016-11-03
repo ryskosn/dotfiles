@@ -888,6 +888,8 @@
 ;; Use opam switch to lookup ocamlmerlin binary
 (setq merlin-command 'opam)
 
+(require 'ocp-indent)
+
 
 ;; ------------------------------------------------------------------------
 ;; @ mql-mode
@@ -980,6 +982,7 @@
 ;; http://qiita.com/koki_cheese/items/2e2ead918a1f1ac5bf6e
 ;; http://unknownplace.org/archives/golang-editing-with-emacs.html
 
+(require 'go-eldoc)
 (add-to-list 'exec-path (expand-file-name (concat (getenv "GOROOT") "/bin")))
 (add-to-list 'exec-path (expand-file-name (concat (getenv "GOPATH") "/bin")))
 (eval-after-load "go-mode"
