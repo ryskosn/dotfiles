@@ -83,6 +83,7 @@
 (depends-on "undo-tree")
 
 ;; Others
+(depends-on "japanese-holidays")
 (depends-on "google-translate")
 ;; (depends-on "browse-kill-ring")
 ;; (depends-on "exec-path-from-shell")
