@@ -888,7 +888,7 @@
 ;; Use opam switch to lookup ocamlmerlin binary
 (setq merlin-command 'opam)
 
-(require 'ocp-indent)
+;; (require 'ocp-indent)
 
 
 ;; ------------------------------------------------------------------------
