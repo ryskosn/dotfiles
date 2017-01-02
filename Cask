@@ -62,6 +62,7 @@
 (depends-on "merlin")
 (depends-on "web-mode")
 (depends-on "yaml-mode")
+(depends-on "fish-mode")
 
 ;; Go
 (depends-on "go-mode")
