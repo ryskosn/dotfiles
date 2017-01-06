@@ -126,6 +126,12 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias grep='grep --color=auto'
 
+# cd && ls
+function cdls () {
+    \cd "$@" && ls
+}
+alias cd='cdls'
+
 # Git
 alias gst='git status'
 
