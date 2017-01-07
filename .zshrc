@@ -16,7 +16,7 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 #   export PATH=${HOME}/.rbenv/bin:${PATH} && \
 #   eval "$(rbenv init -)"
 
-### added by the Heroku Toolbelt
+# added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
 # nodebrew
@@ -35,13 +35,21 @@ if [ -d "$GHC_DOT_APP" ]; then
   export PATH="${HOME}/.local/bin:${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
 fi
 
+# PostgreSQL
+# http://succzero.hatenablog.com/entry/2014/09/21/133315
+export PGDATA=/opt/local/var/db/postgresql94/defaultdb
+
+# OPAM configuration
+. /Users/ryosuke/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
 # language environment
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
 
+export EDITOR="emacsclient -nw"
 
 
-### ssh
+# ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # https://gist.github.com/mollifier/4979906
@@ -135,6 +143,9 @@ alias cd='cdls'
 # Git
 alias gst='git status'
 
+# Emacs
+alias ec='emacsclient -nw'
+
 # open, quicklook
 function op() {
     if [ -z "$1" ]; then
@@ -145,13 +156,6 @@ function op() {
 }
 alias ql='qlmanage -p "$@" >& /dev/null'
 
-
-### PostgreSQL
-# http://succzero.hatenablog.com/entry/2014/09/21/133315
-export PGDATA=/opt/local/var/db/postgresql94/defaultdb
-
-# OPAM configuration
-. /Users/ryosuke/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 
 ### peco
