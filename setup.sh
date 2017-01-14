@@ -8,5 +8,5 @@ ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/init.el ~/.emacs.d/init.el
 ln -s ~/dotfiles/Cask ~/.emacs.d/Cask
 # ln -s ~/dotfiles/setting.json ~/.vscode/setting.json
-
+ln -s ~/dotfiles/config.fish ~/.config/fish/config.fish
 echo set symbolic link done!
