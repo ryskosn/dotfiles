@@ -15,6 +15,7 @@ set -x PATH /usr/local/heroku/bin $PATH
 
 
 # alias
+alias ls "ls -aG"
 alias rm "rm -i"
 alias cp "cp -i"
 alias mv "mv -i"
@@ -35,9 +36,10 @@ alias ql "qlmanage -p $argv[1]"
 # user defined functions
 function cd
   builtin cd $argv
-  ls -a
+  ls
 end
 
 function fish_user_key_bindings
   bind \cr peco_select_history
+  bind \co peco_select_ghq_repository
 end
