@@ -750,15 +750,15 @@
 ;; jedi Python
 ;; http://d.hatena.ne.jp/CortYuming/20130415/p1
 ;; http://d.hatena.ne.jp/n-channel/20131220/1387551080
-(require 'epc)
-(require 'python)
-(require 'auto-complete-config)
+;; (require 'epc)
+;; (require 'python)
+;; (require 'auto-complete-config)
 (require 'jedi)
-(setenv "PYTHONPATH" "~/py34/lib/python3.4/site-packages")
+;; (setenv "PYTHONPATH" "~/py35/lib/python3.5/site-packages")
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 ;; electric-spacing-mode
-(add-hook 'python-mode-hook #'electric-spacing-mode)
+;; (add-hook 'python-mode-hook #'electric-spacing-mode)
 
 
 ;; js2-mode
