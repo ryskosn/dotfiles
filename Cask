@@ -83,6 +83,7 @@
 (depends-on "browse-kill-ring")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
+(depends-on "wand")
 ;; (depends-on "pbcopy")
 ;; (depends-on "popup")
 ;; (depends-on "key-chord")

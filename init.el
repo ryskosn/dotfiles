@@ -928,4 +928,36 @@
 (global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen)
 
 
+;;; --------------------------------------------------------
+;; wand
+
+;; http://emacs.rubikitch.com/wand/
+
+(require 'wand)
+(setq wand:*rules*
+      (list
+       ;; $ の後にシェルコマンドを書くと M-x shell-command で実行
+       (wand:create-rule :match "\\$ "
+                         :capture :after
+                         :action shell-command)
+       ;; http/httpsのURLをM-x browse-urlで開く
+       (wand:create-rule :match "https?://"
+                         :capture :whole
+                         :action browse-url)
+       ;; fileのURLをfind-fileで開く
+       (wand:create-rule :match "file:"
+                         :capture :after
+                         :action find-file)
+       ;; #> の後のS式を評価し結果を表示する
+       (wand:create-rule :match "#> "
+                         :capture :after
+                         :action (lambda (string)
+                                   (message "%S" (eval (read string)))))))
+;;; 使用例
+;; $ ls
+;; http://emacs.rubikitch.com/
+;; test file:~/.emacs.d/init.el
+;; #> (+ 1 3)
+(global-set-key (kbd "<f9>") 'wand:execute-current-line)
+
 ;;; init.el ends here
