@@ -254,45 +254,6 @@
     (emacs-lisp-mode . "El")
     (markdown-mode . "Md")))
 
-;; (defun clean-mode-line ()
-;;   (interactive)
-;;   (loop for (mode . mode-str) in mode-line-cleaner-alist
-;;        do
-;;         (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
-;;           (when old-mode-str
-;;             (setcar old-mode-str mode-str))
-;;           ;; major mode
-;;           (when (eq mode major-mode)
-;;             (setq mode-name mode-str)))))
-;;
-;; (add-hook 'after-change-major-mode-hook 'clean-mode-line)
-
-;; powerline
-;; http://shibayu36.hatenablog.com/entry/2014/02/11/160945
-
-;; (require 'powerline)
-
-;; (set-face-attribute 'mode-line nil
-;;                     :foreground "#000"
-;;                     ;; :foreground "#fff"
-;;                     :background "#FF0066"
-;;                     :box nil)
-
-;; (set-face-attribute 'powerline-active1 nil
-;;                     :foreground "#000"
-;;                     ;; :foreground "#fff"
-;;                     :background "#FF6699"
-;;                     :inherit 'mode-line)
-
-;; (set-face-attribute 'powerline-active2 nil
-;;                     :foreground "#000"
-;;                     :background "#ffaeb9"
-;;                     :inherit 'mode-line)
-
-;; (powerline-default-theme)
-
-
-
 
 ;; -------------------------------------------------------------------------
 ;; @ Mac OS X
@@ -314,10 +275,6 @@
 ;; ;; backslash を先
 ;; (mac-translate-from-yen-to-backslash)
 
-;; IME ON/OFF時のカーソルカラー
-
-;; http://qiita.com/catatsuy/items/886f1e0632c0b2760fb4
-;; (mac-set-input-method-parameter "com.google.inputmethod.Japanese.base" 'title "あ")
 
 ;; OS X とクリップボードを同期する
 (defun copy-from-osx ()
@@ -349,7 +306,6 @@
 ;; (global-set-key (kbd "C-m")	'newline-and-indent)
 
 
-
 ;; -------------------------------------------------------------------------
 ;; @ Package, Cask, auto-install
 
@@ -378,22 +334,9 @@
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
-;; auto-install
-;; http://www.emacswiki.org/emacs/auto-install.el
-(when (require 'auto-install nil t)
-  (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;; (auto-install-update-emacswiki-package-name t)
-  (auto-install-compatibility-setup))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 
 ;; -------------------------------------------------------------------------
-;; @ Anything
+;; @ anything
 
 ;; anything.el を有効にする
 (require 'anything-startup)
@@ -748,17 +691,10 @@
 ;; @ Languages, programming
 
 ;; jedi Python
-;; http://d.hatena.ne.jp/CortYuming/20130415/p1
-;; http://d.hatena.ne.jp/n-channel/20131220/1387551080
-;; (require 'epc)
-;; (require 'python)
-;; (require 'auto-complete-config)
 (require 'jedi)
-;; (setenv "PYTHONPATH" "~/py35/lib/python3.5/site-packages")
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
-;; electric-spacing-mode
-;; (add-hook 'python-mode-hook #'electric-spacing-mode)
+
 
 
 ;; js2-mode
@@ -780,12 +716,6 @@
 (add-hook 'rst-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 ;; 見出しを設定する
 (global-set-key "\C-c=" 'rst-adjust)
-
-
-;; jade
-;; (require 'sws-mode)
-;; (require 'jade-mode)
-;; (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 
 ;; quickrun
@@ -880,6 +810,7 @@
 (unless (server-running-p)
   (server-start))
 
+
 ;; ------------------------------------------------------------------------
 ;; @ Tuareg, OCaml
 
@@ -915,23 +846,6 @@
 
 
 ;; ------------------------------------------------------------------------
-;; @ mql-mode
-(require 'mql-mode)
-(require 'electric-operator)
-(add-hook 'mql-mode-hook #'electric-operator-mode)
-(add-hook 'c-mode-hook #'electric-operator-mode)
-
-;; (setq-default c-basic-offset 2      ;; 基本インデント量
-;;               tab-width 2           ;; タブ幅
-;;               indent-tabs-mode nil) ;; インデントをタブでするかスペースでするか
-
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            ;; (c-set-style "k&r")
-            (c-set-style "java")
-            (setq c-basic-offset 4)))
-
-;; ------------------------------------------------------------------------
 ;; @ ediff
 
 ;; コントロール用のバッファを同一フレーム内に表示
@@ -941,59 +855,6 @@
 
 
 ;; ------------------------------------------------------------------------
-;; @ C
-
-(add-hook 'c-mode-hook
-          (lambda ()
-            (c-set-style "k&r")
-            (setq c-basic-offset 4)))
-
-
-;; google-c-style.el
-;; (require 'google-c-style)
-;; (add-hook 'c-mode-common-hook 'google-set-c-style)
-;; (add-hook 'mql-mode-hook 'google-set-c-style)
-;; (add-hook 'mql-mode-hook 'google-make-newline-indent)
-
-;; (add-hook 'c++-mode-common-hook 'google-set-c-style)
-;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
-
-;; ------------------------------------------------------------------------
-;; @ Emacs Lisp
-
-(require 'lispxmp)
-(define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
-;; (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)
-
-
-;; ------------------------------------------------------------------------
-;;; 為替レートの差分を pips で表示する
-
-;; (long 123.342 124.642)                   ; => 130.0
-;; (long 123.343 123.393)                   ; => 5.0
-;; (short 1.11023 1.11011)                 ; => 1.2
-;; (short 1.11023 1.11411)                 ; => -38.8
-
-(defun fivedigits (x)
-  (if (< (* x 1000) 10000)
-      t
-    nil))
-
-(defun long (x y)
-  (if (fivedigits x)
-      (/ (- (* 100000 y) (* 100000 x)) 10)
-    (/ (- (* 1000 y) (* 1000 x)) 10)))
-
-(defun short (x y)
-  (if (fivedigits x)
-      (/ (- (* 100000 x) (* 100000 y)) 10)
-    (/ (- (* 1000 x) (* 1000 y)) 10)))
-
-
-;; ------------------------------------------------------------------------
-
-
 ;; @ PATH
 
 (add-to-list 'exec-path (expand-file-name "/opt/local/bin"))
