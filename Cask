@@ -6,6 +6,8 @@
 (source marmalade)
 (source org)
 
+(depends-on "cask")
+
 ;; anything
 (depends-on "anything")
 
