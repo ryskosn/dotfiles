@@ -6,15 +6,16 @@
 (source marmalade)
 (source org)
 
-;; Anything (helm?)
+;; anything
 (depends-on "anything")
 
-;; Appearance
+;; appearance
 (depends-on "highlight-symbol")
 (depends-on "popwin")
 (depends-on "rainbow-delimiters")
 (depends-on "powerline")
 (depends-on "nlinum")
+(depends-on "yascroll")
 
 ;; auto-complete
 (depends-on "auto-complete")
@@ -23,73 +24,66 @@
 (depends-on "fuzzy")
 (depends-on "popup")
 
-;; auto-install
-(depends-on "auto-install")
-
-;; Coding
+;; coding
+(depends-on "quickrun")
 (depends-on "flycheck")
 (depends-on "yasnippet")
 (depends-on "flex-autopair")
-(depends-on "quickrun")
-(depends-on "lispxmp")
 (depends-on "paredit")
 (depends-on "electric-operator")
+(depends-on "electric-spacing")
+;; (depends-on "smartrep")
 
-;; File
+;; file
 (depends-on "open-junk-file")
 (depends-on "recentf-ext")
 
 ;; Git
 (depends-on "magit")
 
-;; Key
-;; (depends-on "key-chord")
-(depends-on "sequential-command")
-(depends-on "smartrep")
-(depends-on "electric-spacing")
+;; search & replace
+(depends-on "ag")
+(depends-on "anzu")
+(depends-on "migemo")
+(depends-on "visual-regexp")
+;; (depends-on "wgrep")
 
-;; Org-mode
+;; undo
+(depends-on "undo-tree")
+
+;; org-mode
 (depends-on "org-plus-contrib")
 
-;; Programming modes
-(depends-on "coffee-mode")
-(depends-on "js2-mode")
-(depends-on "json-mode")
-(depends-on "jade-mode")
-(depends-on "markdown-mode")
-(depends-on "tuareg")
-(depends-on "utop")
-(depends-on "merlin")
-(depends-on "web-mode")
-(depends-on "yaml-mode")
-(depends-on "fish-mode")
+;; Python
+(depends-on "jedi")
 
 ;; Go
 (depends-on "go-mode")
 (depends-on "go-autocomplete")
 (depends-on "go-eldoc")
 
-;; Python
-(depends-on "jedi")
+;; OCaml
+(depends-on "tuareg")
+(depends-on "merlin")
+(depends-on "utop")
 
-;; Regexp
-(depends-on "visual-regexp")
+;; other languages
+(depends-on "json-mode")
+(depends-on "yaml-mode")
+(depends-on "markdown-mode")
+(depends-on "web-mode")
+(depends-on "fish-mode")
 
-;; Search
-(depends-on "ag")
-(depends-on "anzu")
-(depends-on "migemo")
+;; elisp
+;; (depends-on "lispxmp")
 
-;; Undo
-(depends-on "undo-tree")
-
-;; Others
+;; others
 (depends-on "japanese-holidays")
 (depends-on "google-translate")
-;; (depends-on "browse-kill-ring")
-;; (depends-on "exec-path-from-shell")
+(depends-on "browse-kill-ring")
+(depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 ;; (depends-on "pbcopy")
 ;; (depends-on "popup")
-;; (depends-on "wgrep")
-;; (depends-on "yascroll")
+;; (depends-on "key-chord")
+;; (depends-on "sequential-command")
