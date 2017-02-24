@@ -1,6 +1,6 @@
 # PATH
 set -x PATH /opt/local/bin /opt/local/sbin $PATH
-set -x PATH $HOME/bin $HOME/py36/bin $HOME/py35/bin $PATH
+set -x PATH $HOME/bin $HOME/py36/bin $HOME/py27/bin $PATH
 set -x PATH $HOME/.cask/bin $PATH
 
 # Go
