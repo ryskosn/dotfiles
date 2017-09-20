@@ -14,6 +14,9 @@ set -x PATH $HOME/.nodebrew/current/bin $PATH
 # Heroku Toolbelt
 set -x PATH /usr/local/heroku/bin $PATH
 
+# OCaml
+eval (opam config env)
+
 
 # alias
 alias ls "ls -aG"

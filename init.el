@@ -821,28 +821,49 @@
       (append '(("\\.ml[ily]?$" . tuareg-mode)
                 ("\\.topml$" . tuareg-mode))
               auto-mode-alist))
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+
+;; (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+
+;; Automatically load utop.el
+(autoload 'utop "utop" "Toplevel for OCaml" t)
+(autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
+(add-hook 'tuareg-mode-hook 'utop-minor-mode)
+;; Use the opam installed utop
+(setq utop-command "opam config exec -- utop -emacs")
+
+
 (add-hook 'tuareg-mode-hook 'merlin-mode)
 (setq merlin-use-auto-complete-mode t)
 (setq merlin-error-after-save nil)
 (setq tuareg-use-smie nil)
 
+;; from merlin install message
+(let ((opam-share (ignore-errors (car (process-lines
+   "opam" "config" "var" "share")))))
+      (when (and opam-share (file-directory-p opam-share))
+       ;; Register Merlin
+       (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
+       (autoload 'merlin-mode "merlin" nil t nil)
+       ;; Automatically start it in OCaml buffers
+       (add-hook 'tuareg-mode-hook 'merlin-mode t)
+       (add-hook 'caml-mode-hook 'merlin-mode t)
+       ;; Use opam switch to lookup ocamlmerlin binary
+       (setq merlin-command 'opam)))
+
 ;; Add opam emacs directory to the load-path
-(setq opam-share (substring (shell-command-to-string "opam config var
-   share 2> /dev/null") 0 -1))
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;; (setq opam-share (substring (shell-command-to-string "opam config var
+;;    share 2> /dev/null") 0 -1))
+;; (setq opam-share "/Users/ryosuke/.opam/4.05.0/share")
+;; (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+
 ;; Load merlin-mode
 (require 'merlin)
-;; Start merlin on ocaml files
-(add-hook 'tuareg-mode-hook 'merlin-mode t)
-(add-hook 'caml-mode-hook 'merlin-mode t)
+
 ;; Enable auto-complete
 (setq merlin-use-auto-complete-mode 'easy)
-;; Use opam switch to lookup ocamlmerlin binary
-(setq merlin-command 'opam)
 
-;; (require 'ocp-indent)
+(require 'ocp-indent)
+
 
 
 ;; ------------------------------------------------------------------------
