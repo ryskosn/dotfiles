@@ -152,10 +152,10 @@
 ;; タブ幅
 (custom-set-variables '(tab-width 4))
 
-;;; diredを便利にする
+;; dired を便利にする
 (require 'dired-x)
 
-;;; diredから"r"でファイル名をインライン編集する
+;; dired から "r" でファイル名をインライン編集する
 (require 'wdired)
 (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
 
@@ -479,6 +479,7 @@
 
 ;; コードを評価するとき尋ねない
 (setq org-confirm-babel-evaluate nil)
+
 
 ;; -------------------------------------------------------------------------
 ;; @ auto-complete
@@ -850,12 +851,6 @@
        ;; Use opam switch to lookup ocamlmerlin binary
        (setq merlin-command 'opam)))
 
-;; Add opam emacs directory to the load-path
-;; (setq opam-share (substring (shell-command-to-string "opam config var
-;;    share 2> /dev/null") 0 -1))
-;; (setq opam-share "/Users/ryosuke/.opam/4.05.0/share")
-;; (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
-
 ;; Load merlin-mode
 (require 'merlin)
 
@@ -863,7 +858,6 @@
 (setq merlin-use-auto-complete-mode 'easy)
 
 (require 'ocp-indent)
-
 
 
 ;; ------------------------------------------------------------------------
