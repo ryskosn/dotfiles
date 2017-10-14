@@ -187,27 +187,8 @@ $ /opt/local/bin/python3.6 -m venv ~/py36
 
 # ~/py36 に PATH が通った状態で
 $ pip install -U pip
-```
 
-```sh
 $ pip install -r ~/dotfiles/requirements.txt
-```
-
-`requirements.txt`
-
-```requirements.txt
-ipython
-lxml
-requests
-beautifulsoup4
-epc
-jedi
-gnureadline
-readline
-Flask
-python-gyazo
-watchdog
-pulp
 ```
 
 `pip` でインストールしたパッケージを一括でアップデートするワンライナー
