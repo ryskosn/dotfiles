@@ -183,17 +183,31 @@ $ go get -u github.com/timakin/gonvert
 ## Python
 
 ```sh
+$ /opt/local/bin/python3.6 -m venv ~/py36
+
+# ~/py36 に PATH が通った状態で
 $ pip install -U pip
-$ pip install ipython
-$ pip install lxml
-$ pip install requests
-$ pip install beautifulsoup4
-$ pip install epc
-$ pip install jedi
-$ pip install pulp
-$ pip install gnureadline
-$ pip install python-gyazo
-$ pip install watchdog
+```
+
+```sh
+$ pip install -r ~/dotfiles/requirements.txt
+```
+
+`requirements.txt`
+
+```requirements.txt
+ipython
+lxml
+requests
+beautifulsoup4
+epc
+jedi
+gnureadline
+readline
+Flask
+python-gyazo
+watchdog
+pulp
 ```
 
 `pip` でインストールしたパッケージを一括でアップデートするワンライナー
