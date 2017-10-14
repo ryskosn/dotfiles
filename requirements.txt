@@ -1,0 +1,12 @@
+ipython
+lxml
+requests
+beautifulsoup4
+epc
+jedi
+gnureadline
+readline
+Flask
+python-gyazo
+watchdog
+pulp
