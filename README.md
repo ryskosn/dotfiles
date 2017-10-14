@@ -1,4 +1,4 @@
-## Set up
+## OS X
 
 
 ```sh
@@ -12,10 +12,49 @@ $ git clone https://github.com/ryskosn/dotfiles.git
 $ bash osx_bootstrap.sh
 ```
 
+### System settings
+
+#### キーボード
+修飾キー `CapsLock` キーを `Control` にする
+
+ショートカット -> キーボード
+次のウィンドウを操作対象にする
+`Command + F1` -> `Option + Tab` に変更する
+
+ショートカット -> 入力ソース
+
+前の入力ソースを選択 -> チェックを外す
+入力メニューの次のソースを選択
+`Opt + Cmd + spc` -> `Ctrl + ;`
+
+ショートカット -> Spotlight
+
+Spotlight 検索フィールドを表示
+`Ctrl + spc` -> `Ctrl + ‘`
+
+
+#### トラックパッド
+- ポイントとクリック -> タップでクリックを有効にする
+- スクロールとズーム -> スクロールの方向ナチュラルのチェックを外す
+
+#### 共有
+コンピュータ名を修正する
+
+#### セキュリティとプライバシー
+一般: すべてのアプリケーションを許可
+
+
+### Finder
+
+- サイドバーからタグを削除
+- All my files を非表示
+- ホームディレクトリを表示など
+
 
 ## MacPorts
 
 以下よりインストーラーをダウンロードする
+
 https://www.macports.org/install.php
 
 ```sh
@@ -41,12 +80,14 @@ $ sudo port install chromedriver
 ```
 
 GNU コマンドのインストールについて
+
 http://folioscope.hatenablog.jp/entry/2012/09/17/110914
 
 
 ## iTerm2
 
 以下よりインストーラーをダウンロードする
+
 https://iterm2.com/downloads.html
 
 Profiles タブで Default プロファイルをコピーして Copy of Default を自分用に設定する
@@ -186,39 +227,7 @@ $ nodebrew use stable
 ```
 
 
-## System settings
-
-キーボード
-修飾キー `CapsLock` キーを `Control` にする
-
-ショートカット -> キーボード
-次のウィンドウを操作対象にする
-`Command + F1` -> `Option + Tab` に変更する
-
-ショートカット -> 入力ソース
-
-前の入力ソースを選択 -> チェックを外す
-入力メニューの次のソースを選択
-`Opt + Cmd + spc` -> `Ctrl + ;`
-
-ショートカット -> Spotlight
-
-Spotlight 検索フィールドを表示
-`Ctrl + spc` -> `Ctrl + ‘`
-
-
-- トラックパッド -> ポイントとクリック -> タップでクリックを有効にする
-- スクロールとズーム -> スクロールの方向ナチュラルのチェックを外す
-- 共有 -> コンピュータ名を修正する
-- セキュリティとプライバシー -> 一般 すべてのアプリケーションを許可
-
-
 ## Other Apprications
-
-### Finder
-
-サイドバーからタグを削除、All my files を非表示、ホームディレクトリを表示など
-
 
 ### Karabiner
 
@@ -248,6 +257,7 @@ cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate
 ### Quicksilver
 
 以下よりインストーラーをダウンロードする
+
 https://qsapp.com/download.php
 
 - Command hotkey: `Cmd + spc`
@@ -258,6 +268,7 @@ https://qsapp.com/download.php
 ### Google IME
 
 以下よりインストーラーをダウンロードする
+
 http://www.google.co.jp/ime/
 
 システム環境設定 -> キーボード
