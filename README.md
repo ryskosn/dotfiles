@@ -1,70 +1,63 @@
 ## Set up
-Xcode command line tools をインストールする。
 
-```
+
+```sh
+# Xcode command line tools をインストールする
 $ xcode-select —install
-```
 
-dotfiles リポジトリを clone してくる。
-
-```
+# dotfiles リポジトリを clone してくる
 $ git clone https://github.com/ryskosn/dotfiles.git
+
+# OS X の各種設定
 $ bash osx_bootstrap.sh
 ```
 
-MacPorts をインストールする
 
-- https://www.macports.org/install.php
+## MacPorts
 
-ダウンロードしたパッケージスクリプトを展開する。
+以下よりインストーラーをダウンロードする
+https://www.macports.org/install.php
 
-```
+```sh
 $ sudo port selfupdate
-```
 
-```
+$ sudo port install fish
 $ sudo port install emacs
 $ sudo port install git
-$ sudo port install zsh
-$ sudo port install python34
-$ sudo port install python27
-$ sudo port install tree
-$ sudo port install tmux
-$ sudo port install wget
+$ sudo port install findutils
+$ sudo port install coreutils
+
+$ sudo port install go
+$ sudo port install python36
+$ sudo port install py36-readline
+$ sudo port install opam
 
 $ sudo port install nkf
-$ sudo port install gauche
-$ sudo port install opam
-$ sudo port install stunnel
+$ sudo port install tree
+$ sudo port install wget
+$ sudo port install tmux
+$ sudo port install tig
+$ sudo port install chromedriver
 ```
 
-### GNU コマンドのインストール
-
-- http://folioscope.hatenablog.jp/entry/2012/09/17/110914
-
-```zsh
-$ sudo port install coreutils
-$ sudo port install findutils
-```
+GNU コマンドのインストールについて
+http://folioscope.hatenablog.jp/entry/2012/09/17/110914
 
 
 ## iTerm2
 
-- http://iterm2.com/downloads.html
+以下よりインストーラーをダウンロードする
+https://iterm2.com/downloads.html
 
 Profiles タブで Default プロファイルをコピーして Copy of Default を自分用に設定する
 
-### テキスト設定
-
-Profiles -> General -> Text
+### Profiles -> General -> Text
 
 - Cursor を Box に
 - Blinking cursor にチェック
 - Font は 12pt Monaco にしておく
 
-### キー設定
-
-Profiles -> General -> Keys
+### Profiles -> General -> Keys
 
 - Left option key act as: Normal
 - Right option key act as: +Esc
@@ -73,43 +66,29 @@ Keys
 
 - Left command key: Right Option
 
-### zsh の設定
+#### see also
+http://ryskosn.hatenadiary.com/entry/20141011/1413036752
 
-Profiles -> General -> Command
+### Profiles -> General -> Command
 
+```sh
+/opt/local/bin/fish
 ```
-/opt/local/bin/zsh
-```
 
 
-## Emacs の設定
+## Emacs
 
-### Cask のインストール
+### Cask
 
-```
-$ curl -fsSkL https://raw.github.com/cask/cask/master/go | python
-
+```sh
+$ curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
 $ cd ~/.emacs.d/
 $ cask install
 ```
 
-`cask install` の際に下記メッセージが出た。
-
-```
-Select coding system (default raw-text):
-```
-`utf-8` を指定しておいた。
-
-この辺りの話と関係があるのかもしれない。
-
-- http://handlename.hatenablog.jp/entry/2014/10/17/103603
-
 ### cmigemo
 
-- http://rubikitch.com/2014/08/20/migemo/
-- http://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html
-
-```
+```sh
 $ mkdir ~/src
 $ mkdir ~/bin
 $ cd ~/src
@@ -119,12 +98,16 @@ $ ./configure
 $ make osx
 $ make osx-dict
 $ sudo make osx-install
-
 ```
+
+#### see also
+
+- http://rubikitch.com/2014/08/20/migemo/
+- http://weblog.ymt2.net/blog/html/2013/08/23/install_migemo_to_emacs_24_3_1.html
 
 ### text-adjust.el
 
-```zsh
+```sh
 $ cd ~/.emacs.d/
 $ mkdir elisp
 $ cd elisp
@@ -132,49 +115,75 @@ $ curl -O http://rubikitch.com/f/text-adjust.el
 $ curl -O http://rubikitch.com/f/mell.el
 ```
 
-### color-theme
+### color theme
 
 - http://d.hatena.ne.jp/aoe-tk/20130210/1360506829
 - http://qiita.com/iriya-ufo@github/items/6f3304a23268a51a688e
 
 
-## Python
-
-普段使い用の Python 3.4 環境を作る。
-`pip install -r ファイル` でパッケージをまとめてインストールする。
-
-```zsh
-$ pyvenv-3.4 ~/py34
-$ ~/py34/bin/pip install -r ~/dotfiles/py34_freeze.txt
-```
-
-Python 2.7 も `~/` に環境を作る。
-`virtualenv -p インタプリタ` でインタプリタを指定する。
-
-```zsh
-$ pip install virtualenv
-$ virtualenv -p /opt/local/bin/python2.7 py27
-```
-
-### pip の更新
-
-```zsh
-$ pip install --upgrade pip
-```
-
-### Python Jedi
-
-```zsh
-$ pip install jedi
-$ pip install epc
-```
-
-- http://d.hatena.ne.jp/n-channel/20131220/1387551080
-- http://cortyuming.hateblo.jp/entry/20130415/p1
-
 ## Go
 
-later...
+```sh
+$ go get -u github.com/motemen/ghq
+$ go get -u github.com/motemen/gore
+$ go get -u github.com/dougm/goflymake
+$ go get -u github.com/rogpeppe/godef
+$ go get -u github.com/nsf/gocode
+$ go get -u github.com/golang/lint/golint
+$ go get -u golang.org/x/tools/cmd/goimports
+$ go get -u golang.org/x/text/encoding/japanese
+$ go get -u golang.org/x/text/transform
+$ go get -u golang.org/x/oauth2
+
+$ go get -u github.com/jlaffaye/ftp
+$ go get -u github.com/timakin/gonvert
+```
+
+## Python
+
+```sh
+$ pip install -U pip
+$ pip install ipython
+$ pip install lxml
+$ pip install requests
+$ pip install beautifulsoup4
+$ pip install epc
+$ pip install jedi
+$ pip install pulp
+$ pip install gnureadline
+$ pip install python-gyazo
+$ pip install watchdog
+```
+
+`pip` でインストールしたパッケージを一括でアップデートするワンライナー
+
+```sh
+$ pip list --outdated | awk '{print $1}' | xargs pip install -U
+```
+
+## OCaml
+
+```sh
+$ opam switch list --all
+$ opam switch 4.05.0
+```
+```sh
+$ opam install -y core
+$ opam install -y utop
+$ opam install -y omake
+$ opam install -y ounit
+$ opam install -y ocp-indent
+$ opam install -y merlin
+```
+
+## JavaScript
+
+```sh
+$ curl -L git.io/nodebrew | perl - setup
+$ nodebrew ls-remote
+$ nodebrew install-binary stable
+$ nodebrew use stable
+```
 
 
 ## System settings
@@ -210,29 +219,27 @@ Spotlight 検索フィールドを表示
 
 サイドバーからタグを削除、All my files を非表示、ホームディレクトリを表示など
 
-### Karabina
+
+### Karabiner
+
+（要見直し）
 
 - https://pqrs.org/osx/karabiner/index.html.ja
 
 インストールして、システム環境設定で許可してから、設定を反映させる。
 起動した状態でシェルスクリプトを実行する。
 
-```zsh
+```sh
 $ sh ~/dotfiles/karabiner-import.sh
 ```
 
 ### Slate
 
-- https://github.com/jigish/slate
+https://github.com/jigish/slate
 
-
-```
+```sh
 cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz
 ```
-
-or direct download
-
-- http://slate.ninjamonkeysoftware.com/Slate.dmg
 
 初回起動時にアクセシビリティ設定を許可する必要あり。
 起動したらメニューバーのアイコンをクリックして `Launch Slate On Login` を選択する。
@@ -240,26 +247,18 @@ or direct download
 
 ### Quicksilver
 
-- http://qsapp.com/download.php
+以下よりインストーラーをダウンロードする
+https://qsapp.com/download.php
 
-#### install with plugin
-
-- Chrome
-- iTerm
-- shelf
-
-
-#### Command hotkey
-
-`Cmd + spc`
-When activated switch keyboard to U.S.
-
-Show icon in dock
+- Command hotkey: `Cmd + spc`
+- When activated switch keyboard to U.S.
+- Show icon in dock
 
 
 ### Google IME
 
-- http://www.google.co.jp/ime/
+以下よりインストーラーをダウンロードする
+http://www.google.co.jp/ime/
 
 システム環境設定 -> キーボード
 
@@ -272,7 +271,7 @@ Show icon in dock
 
 - スペースの入力 -> 半角にする
 - キー設定の選択 -> カスタム、インポートする
-- `GoogleIME_keymap.txt` をインポートする
+- Dropbox から `GoogleIME_keymap.txt` をインポートする
 
 
 #### Advanced
@@ -285,23 +284,18 @@ Show icon in dock
 ## Others
 
 - Dropbox
- - https://www.dropbox.com/downloading?src=index
-
+  - https://www.dropbox.com/downloading?src=index
 - KeePassX
- - http://www.keepassx.org/downloads/
-
+  - http://www.keepassx.org/downloads/
+  - コミュニティ版があるようなので要確認
 - Shades
- - http://www.charcoaldesign.co.uk/shades
-
+  - http://www.charcoaldesign.co.uk/shades
 - Chrome
- - https://www.google.co.jp/chrome/browser/desktop/index.html
- - Google アカウントでログイン、同期パスワードを入力する
-
+  - https://www.google.co.jp/chrome/browser/desktop/index.html
+  - Google アカウントでログイン、同期パスワードを入力する
 - CotEditor
- - http://coteditor.com
-
+  - http://coteditor.com
 - PyCharm
- - https://www.jetbrains.com/pycharm/download/
-
+  - https://www.jetbrains.com/pycharm/download/
 - Skype
- - http://www.skype.com/en/download-skype/skype-for-mac/downloading/
+  - http://www.skype.com/en/download-skype/skype-for-mac/downloading/
