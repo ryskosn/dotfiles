@@ -245,8 +245,9 @@ https://github.com/jigish/slate
 cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz
 ```
 
-初回起動時にアクセシビリティ設定を許可する必要あり。
-起動したらメニューバーのアイコンをクリックして `Launch Slate On Login` を選択する。
+- 初回起動時にアクセシビリティ設定を許可する
+  - システム環境設定 -> Security and Privacy -> Privacy -> Accessibility
+- メニューバーのアイコンをクリックして `Launch Slate On Login` を選択する
 
 
 ### Quicksilver
