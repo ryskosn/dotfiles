@@ -69,6 +69,9 @@
 (depends-on "merlin")
 (depends-on "utop")
 
+;; Haskell
+(depends-on "haskell-mode")
+
 ;; other languages
 (depends-on "json-mode")
 (depends-on "yaml-mode")
