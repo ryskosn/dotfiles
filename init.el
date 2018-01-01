@@ -997,7 +997,7 @@
     (font-lock-mode)
     (imenu-add-menubar-index)
     ;; GHCi のコマンドを設定
-    (setq haskell-program-name "/usr/bin/stack ghci") ;; stack の場合
+    (setq haskell-program-name "/usr/lobal/bin/stack ghci") ;; stack の場合
     (inf-haskell-mode)
     ;; ghc-mod を使えるように
     (ghc-init)
