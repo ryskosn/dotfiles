@@ -989,19 +989,32 @@
 (autoload 'ghc-init "ghc" nil t)
 (autoload 'ghc-debug "ghc" nil t)
 
-(defun my-haskell-mode-hook ()
-    (interactive)
-    ;; インデント
-    (turn-on-haskell-indentation)
-    (turn-on-haskell-doc-mode)
-    (font-lock-mode)
-    (imenu-add-menubar-index)
-    ;; GHCi のコマンドを設定
-    (setq haskell-program-name "/usr/lobal/bin/stack ghci") ;; stack の場合
-    (inf-haskell-mode)
-    ;; ghc-mod を使えるように
-    (ghc-init)
-    ;; flycheck を起動
-    (flycheck-mode))
-(add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+;; フックを設定
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
+(add-hook 'haskell-mode-hook 'haskell-doc-mode)
+;; (add-hook 'haskell-mode-hook 'view-mode)
+
+(setq haskell-process-type 'stack-ghci)
+(setq haskell-process-path-ghci "stack")
+(setq haskell-process-args-ghci "ghci")
+
+
+;; (defun my-haskell-mode-hook ()
+;;     (interactive)
+;;     ;; インデント
+;;     (turn-on-haskell-indentation)
+;;     (turn-on-haskell-doc-mode)
+;;     (font-lock-mode)
+;;     (imenu-add-menubar-index)
+;;     ;; GHCi のコマンドを設定
+;;     (setq haskell-program-name "/usr/lobal/bin/stack ghci") ;; stack の場合
+;;     (inf-haskell-mode)
+;;     ;; ghc-mod を使えるように
+;;     (ghc-init)
+;;     ;; flycheck を起動
+;;     (flycheck-mode))
+;; (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+
 ;;; init.el ends here
