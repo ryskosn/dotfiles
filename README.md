@@ -1,3 +1,9 @@
+これは少し古いままになっている。  
+bitbucket の方が新しい。
+
+- [ryskosn / dotfiles — Bitbucket](https://bitbucket.org/ryskosn/dotfiles/src/master/)
+
+
 ## OS X
 
 
